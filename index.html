@@ -4,7 +4,11 @@
     <style>
     .container {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
+        justify-content: space-between;
+        max-width: 480px;
+        margin: 0 auto;
     }
     .btn, textarea {
         background-color: white;
@@ -15,6 +19,19 @@
     }
     .btn-clicked{
         background-color: darkgray;
+    }
+    textarea{
+        width: 100%;
+        height: 150px;
+    }
+    @media (max-width: 768px){
+        .container{
+            flex-direction: column;
+        }
+        button{
+            width: 100%;
+            border-radius: 0;
+        }
     }
     </style>
 </head>
