@@ -4,34 +4,31 @@
     <style>
     .container {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 480px;
-        margin: 0 auto;
+        align-items: top;
     }
-    .btn, textarea {
-        background-color: white;
-        border: none;
-        margin: 5px;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-    }
+
+.textarea {
+    background-color: white;
+    border: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 20px; 
+	margin: 20px;
+}
+
+	.btn {
+    background-color: light gray;
+    margin: 2px;
+    height: 40px;
+    border: none;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+
+
     .btn-clicked{
         background-color: darkgray;
-    }
-    textarea{
-        width: 100%;
-        height: 150px;
-    }
-    @media (max-width: 768px){
-        .container{
-            flex-direction: column;
-        }
-        button{
-            width: 100%;
-            border-radius: 0;
-        }
     }
     </style>
 </head>
@@ -44,8 +41,8 @@
             <button class="btn" id="btn_text4" onclick="addText(4)">btn_text4</button><br>
             <button class="btn" id="btn_text5" onclick="addText(5)">btn_text5</button>
         </div>
-        <textarea id="textBox" rows="4" cols="50">
-        </textarea>
+	<textarea id="textBox" rows="4" cols="50" class="textarea">
+	</textarea>
     </div>
 
     <script>
