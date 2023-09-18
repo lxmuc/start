@@ -59,7 +59,12 @@
             "Final text 5"
         ];
 
-        function addText(index){
+	function copyToClipboard() {
+            textBox.select();
+            document.execCommand("copy");
+        }
+        
+	    function addText(index){
             clicked[index-1] = !clicked[index-1];
             if(clicked[index-1]) {
                 document.getElementById(`btn_text${index}`).classList.add('btn-clicked');
