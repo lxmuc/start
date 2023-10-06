@@ -1,84 +1,131 @@
 <!DOCTYPE html>
-<html lang="de">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable=no">
-    <style>
-    .container {
-        display: flex;
-        flex-direction: column;  /* Adding flex direction column */
-        align-items: top;
-    }
-
-.textarea {
-    background-color: white;
-    border: 1px;
-    font-family: Arial, sans-serif;
-    font-size: 20px; 
-	margin: 20px;
-}
-
-	.btn {
-    background-color: light gray;
-    margin: 2px;
-    height: 40px;
-    border: none;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    border-radius: 10px;
-}
-
-
-
-    .btn-clicked{
-        background-color: darkgray;
-    }
-    </style>
+  <meta charset="UTF-8">
+  <title>Startseite</title>
+  <link rel="stylesheet" href="./ipadstyle.css">
 </head>
+
 <body>
-    <div class="container">
-        <div>
-            <button class="btn" id="btn_text1" onclick="addText(1)">Zusammenfassen (kurz)</button><br>
-            <button class="btn" id="btn_text2" onclick="addText(2)">Zusammenfassen (lang)</button><br>
-            <button class="btn" id="btn_text3" onclick="addText(3)">Besonders wichtig...</button><br>
-            <button class="btn" id="btn_text4" onclick="addText(4)">btn_text4</button><br>
-            <button class="btn" id="btn_text5" onclick="addText(5)">btn_text5</button>
-        </div>
-	<textarea id="textBox" rows="4" cols="50" class="textarea">
-	</textarea>
-    </div>
+<br>
+<div class="button-container">
+  <img src="./png/pdf.png" alt="Image">
+  <img src="./png/haufe.png" alt="Image">
+  <img src="./png/google.png" alt="Image">
+  <img src="./png/noerr.png" alt="Image">
+  <img src="./png/cms.png" alt="Image">
+  <img src="./png/brd.png" alt="Image">  
+  <img src="./png/kliemt.png" alt="Image">
+  <img src="./png/beck.png" alt="Image">
+  <img src="./png/onedrive.png" alt="Image">
+  <img src="./png/verdi.png" alt="Image">
+  <img src="./png/direkt.png" alt="Image">
+  <span> </span><br><br>
+  <span id="current-date"></span>
+  <span> </span><br><br>
+  </div>
 
-    <script>
-        let clicked = [false, false, false, false, false];
-        let textBox = document.getElementById('textBox');
-        let texts = [
-            "Fasse den o.g. text kurz, also möglichst in einem Satz, zusammen.",
-            "Fasse den o.g. text in Bulletpoints zusammen.",
-            " Besonders wichtig sind mir die Aspekte @@@.",
-            "Hello from text 4",
-            "Final text 5"
-        ];
 
-	function copyToClipboard() {
-            textBox.select();
-            document.execCommand("copy");
-        }
-        
-	    function addText(index){
-            clicked[index-1] = !clicked[index-1];
-            if(clicked[index-1]) {
-                document.getElementById(`btn_text${index}`).classList.add('btn-clicked');
-            } else {
-                document.getElementById(`btn_text${index}`).classList.remove('btn-clicked');
-            }
-            let text = '';
-            for(let i = 0; i < 5; i++){
-                if(clicked[i]){
-                    text += ` ${texts[i]}`;
-                }
-            }
-            textBox.value = text;
-        }
-    </script>
+<!-- SUCHE Standard Abschnitt -->
+<form role="search" id="form0">
+
+  <input type="search" id="query0" name="q0"
+  placeholder="Google Suche Standard..."
+  aria-label="Google Suche Standard...">
+  <button type="submit">Go</button>
+  <br>
+  <input type="checkbox" id="nurletztewoche" name="Nur Eine Woche">
+  <label for="nurletztewoche">Eine Woche</label>
+  <input type="checkbox" id="nurletztesjahr" name="Nur Eine Woche">
+  <label for="nurletztesjahr">Ein Jahr zurück</label>
+
+</form>
+
+  <!-- SUCHE PDF Abschnitt -->
+  <form role="search" id="form1">
+    <input type="search" id="query1" name="q1"
+    placeholder="Google (PDF) ..."
+    aria-label="Google (PDF)...">
+    <button type="submit">Go</button>
+    <br>
+
+  </form>
+
+<!-- SUCHE Direkt Abschnitt -->
+<form role="search" id="form2">
+  <input type="search" id="query2" name="q2"
+  placeholder="Direkter Aufruf..."
+  aria-label="Direkter Aufruf">
+  <button type="submit">Go</button>
+</form>
+
+<!-- SUCHE Kanzlei Abschnitt -->
+<form role="search" id="form3">
+  <input type="search" id="query3" name="q3"
+  placeholder="Suche auf Kanzleiwebsites (CMS, Kliemt, Noerr)..."
+  aria-label="Kanzleisuche">
+  <button type="submit">Go</button>
+
+</form>
+
+<!-- SUCHE Haufe Abschnitt -->
+<form role="search" id="form4">
+  <input type="search" id="query4" name="q4"
+  placeholder="Haufe Suche..."
+  aria-label="Haufesuche">
+  <button type="submit">Go</button>
+</form>
+
+<!-- SUCHE MINISTERIEN Abschnitt -->
+<form role="search" id="form6">
+  <input type="search" id="query6" name="q6"
+  placeholder="Ministerien Suche ..."
+  aria-label="Ministerien Suche">
+  <button type="submit">Go</button>
+</form>
+
+<!-- SUCHE GEGNER Abschnitt -->
+<form role="search" id="form6a">
+  <input type="search" id="query6a" name="q6a"
+placeholder="Verdi, Boeckler etc. Suche..."
+  aria-label="Verdi, Boeckler etc.Suche">
+  <button type="submit">Go</button>
+</form>
+
+<br>
+
+<!-- Lniks Tarifverträge Abschnitt -->
+<div class="button-container">
+  <span>TARIFVERTRÄGE:</span>
+  <br>
+  <br>
+  <a href="https://www.swm.de/dam/doc/karriere/tv-v.pdf" target="_blank"><button>TV-V</button></a> 
+  <a href="https://www.swm.de/dam/doc/karriere/tv-n.pdf" target="_blank"><button>TV-N</button></a>
+  <a href="https://www.swm.de/dam/doc/karriere/tv-mvg.pdf" target="_blank"><button>TV-MVG</button></a>
+  <a href="https://www.swm.de/dam/doc/karriere/tvaoed.pdf" target="_blank"><button>TVaöD</button></a>
+  <a href="https://www.vka.de/assets/media/docs/0/Tarifvertr%C3%A4ge/211110_%C3%84TV_8_ATV-K_Lesefassung.pdf" target="_blank"><button>ATV-K</button></a>
+</div>
+<!-- Ênde -->
+<br>
+<!-- Lniks Tarifverträge Abschnitt -->
+<div class="button-container">
+  <span>Links:</span>
+  <br>
+  <br>
+  <a href="./checklisten/checklisten.html" target="_blank"><button>Checklisten</button></a> 
+  <a href="https://onedrive.live.com/edit.aspx?resid=e2fdc206034b11b8!50356" target="_blank"><button>NOTES Onedrive</button></a> 
+  <a href="https://beck-online.beck.de/Home" target="_blank"><button>BeckOnline (Nomos)</button></a> 
+ </div>
+<!-- Ênde -->
+
+<br>
+
+</div>
+
+
+
+
+  <!-- JAVA SCRIPT -->
+  <script  src="./ipadscript.js"></script>
+
 </body>
 </html>
