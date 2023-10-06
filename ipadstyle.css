@@ -26,6 +26,7 @@ label[for="nurletztewoche"], label[for="nurletztesjahr"] {
 /* GO Buttons */
 button {
   vertical-align: top;
+  horizontal-align: center;
   height: 60px; /* Increase the height */
   width: 60px; /* Increase the width */
   font-size: 24px; /* Increase the font size */
@@ -42,7 +43,7 @@ button {
 
 .button-container img {
   vertical-align: top;
-  height: 50px; /* Increase the height */
+  height: 30px; /* Increase the height */
 }
 
 .button-container button {
