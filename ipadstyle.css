@@ -1,0 +1,61 @@
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Input Field */
+input[id^="query"] {
+  height: 60px; /* Increase the height */
+  width: 80%; /* Make the input box wider */
+  font-size: 24px; /* Increase the font size */
+  margin-bottom: 20px; /* Increase the bottom margin */
+  padding: 10px; /* Add some padding */
+  border: 2px solid #ccc; /* Add a border */
+  border-radius: 10px; /* Add border radius */
+  background-color: #fff; /* Background color */
+}
+
+/* Style for checkboxes */
+label[for="nurletztewoche"], label[for="nurletztesjahr"] {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color: grey;
+}
+
+/* GO Buttons */
+button {
+  vertical-align: top;
+  height: 60px; /* Increase the height */
+  width: 60px; /* Increase the width */
+  font-size: 24px; /* Increase the font size */
+  border: none; /* Remove the border */
+  border-radius: 10px; /* Add border radius */
+  background-color: #007aff; /* Button background color */
+  color: #fff; /* Button text color */
+  margin-top: 10px; /* Add some top margin */
+}
+
+.button-container a {
+  margin: 10px;
+}
+
+.button-container img {
+  vertical-align: top;
+  height: 50px; /* Increase the height */
+}
+
+.button-container button {
+  vertical-align: top;
+  width: 150px; /* Add some top margin */
+  font-size: 24px; /* Increase the font size */
+  padding: 4px 5px; /* Increase padding */
+  border-radius: 10px; /* Add border radius */
+  background-color: #007aff; /* Button background color */
+  color: #fff; /* Button text color */
+  margin-top: 10px; /* Add some top margin */
+  }
+
+.button-container span {
+  color: grey;
+}
