@@ -7,12 +7,13 @@
     <title>Textarea Example</title>
     <script>
         function countCharacters() {
-            var content = document.getElementById('content').value;
-            var cleanedContent = content.replace(/\s{2,}/g, ' ');
-            var characterCount = Math.ceil(cleanedContent.length / 4);
-            var output = document.getElementById('output');
-            output.textContent = 'Result: ' + characterCount;
-        }
+        var content = document.getElementById('content').value;
+        var cleanedContent = content.replace(/\s{2,}/g, ' ');
+        var characterCount = Math.ceil(cleanedContent.length / 4);
+        var percentage = (characterCount / 32000) * 100;
+        var output = document.getElementById('output');
+        output.textContent = 'Result: ' + percentage.toFixed(2) + ' %';
+    }
     </script>
 </head>
 <body>
