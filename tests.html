@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textarea Example</title>
+    <title>Textarea Example 2</title>
     <script>
         function countCharacters() {
-        var content = document.getElementById('content').value;
-        var cleanedContent = content.replace(/\s{2,}/g, ' ');
-        var characterCount = Math.ceil(cleanedContent.length / 4);
-        var percentage = (characterCount / 32000) * 100;
-        var output = document.getElementById('output');
-        output.textContent = 'Result: ' + percentage.toFixed(2) + ' %';
-    }
+            var content = document.getElementById('content').value;
+            var cleanedContent = content.replace(/\s{2,}/g, ' ');
+            var characterCount = Math.ceil(cleanedContent.length / 4);
+            var percentage = Math.ceil((characterCount / 32000) * 100);
+            var output = document.getElementById('output');
+            output.textContent = 'Result: ' + percentage + ' %';
+        }
     </script>
 </head>
 <body>
