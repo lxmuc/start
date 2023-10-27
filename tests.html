@@ -16,9 +16,10 @@
             var content = document.getElementById('content').value;
             var cleanedContent = content.replace(/\s{2,}/g, ' ');
             var characterCount = Math.ceil(cleanedContent.length / 4);
+            var tokens = Math.ceil(characterCount / 4);
             var percentage = Math.ceil((characterCount / 32000) * 100);
             var output = document.getElementById('output');
-            output.textContent = 'Result: ' + percentage + ' %';
+            output.textContent = 'Result: ' + tokens + ' Vol: ' + percentage + ' %';
 
             // Set the cleaned content in the second textarea
             document.getElementById('content2').value = cleanedContent;
