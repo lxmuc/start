@@ -8,14 +8,16 @@
     <script>
         function countCharacters() {
             var content = document.getElementById('content').value;
+            var cleanedContent = content.replace(/\s{2,}/g, ' ');
+            var characterCount = Math.ceil(cleanedContent.length / 4);
             var output = document.getElementById('output');
-            output.textContent = 'Characters: ' + content.length;
+            output.textContent = 'Result: ' + characterCount;
         }
     </script>
 </head>
 <body>
     <textarea id="content" cols="10"></textarea>
-    <button id="EXECUTE" name="EXECUTE" onclick="countCharacters()">Count Characters</button>
+    <button id="EXECUTE" name="EXECUTE" onclick="countCharacters()">Count and Calculate</button>
     <span id="output"></span>
 </body>
 </html>
