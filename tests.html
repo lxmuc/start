@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textarea Example 3</title>
+    <title>Textarea Example 4</title>
     <style>
         textarea {
             width: 300px;
@@ -15,7 +15,7 @@
         function countCharacters() {
             var content = document.getElementById('content').value;
             var cleanedContent = content.replace(/\s{2,}/g, ' ');
-            var characterCount = Math.ceil(cleanedContent.length / 3.8);
+            var characterCount = Math.ceil(cleanedContent.length / 3.5);
             var percentage = Math.ceil((characterCount / 32000) * 100);
             var output = document.getElementById('output');
             output.textContent = 'Result: ' + characterCount + ' Vol: ' + percentage + ' %';
