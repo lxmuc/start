@@ -80,7 +80,7 @@
     const text1 = document.getElementById('text1').value.split(' ');
     const text2 = document.getElementById('text2').value.split(' ');
     const maxLength = Math.max(text1.length, text2.length);
-    let comparison = "";
+    let comparison = "<p>"; // Start with an opening paragraph tag
 
     for (let i = 0; i < maxLength; i++) {
         const word1 = text1[i] || ""; // Default to an empty string if undefined
@@ -92,9 +92,15 @@
         } else {
             comparison += `${word2} `;
         }
+
+        // Check if the word ends with a period
+        if (word2.endsWith('.')) {
+            comparison += "</p><p>"; // Close the current paragraph and start a new one
+        }
     }
 
-    document.querySelector('.div').innerHTML = comparison.trim();
+    comparison += "</p>"; // Close the last paragraph
+    document.querySelector('.div').innerHTML = comparison;
 }
     
     </script>
