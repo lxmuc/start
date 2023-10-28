@@ -69,7 +69,7 @@
                    .replace(/(\d)([a-zA-Z])/g, '$2')    // Remove digits followed by letters
                    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)); // Delete all single digits that are followed by a letter
         text = text.replace(/(\d)\./g, '\n$1');          // Replace "1." with "1" and add a line break
-  text = text.replace(/\n\n\n/g, '\n\n');   // 
+  text = text.replace(/\n\n\n/g, '\n');   // 
                 textArea.value = text;
 
         if (elementId === 'text2') {
