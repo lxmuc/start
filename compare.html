@@ -34,9 +34,9 @@
 
         .div {
             width: 90%;
-            height: 50px;
             border: 1px dashed #000;
             margin-top: 20px;
+            white-space: pre-wrap; /* Preserve whitespace and newlines */
         }
 
         button {
@@ -54,6 +54,7 @@
         <div class="div"></div>
         
     </div>
+    <script src="diff.min.js"></script>=
     <script>
         function cleanText() {
     // Use a small delay to ensure the pasted content is fully in the textarea
@@ -77,32 +78,22 @@
     }
     
     function compareTexts() {
-    const text1 = document.getElementById('text1').value.split(' ');
-    const text2 = document.getElementById('text2').value.split(' ');
-    const maxLength = Math.max(text1.length, text2.length);
+    const text1 = document.getElementById('text1').value;
+    const text2 = document.getElementById('text2').value;
+    const diff = Diff.diffWords(text1, text2);
+
     let comparison = "<p>"; // Start with an opening paragraph tag
 
-    for (let i = 0; i < maxLength; i++) {
-        const word1 = text1[i] || ""; // Default to an empty string if undefined
-        const word2 = text2[i] || ""; // Default to an empty string if undefined
+    diff.forEach(part => {
+        // If the part is added or removed, highlight it
+        const color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : 'transparent';
+        comparison += `<span style="background-color: ${color};">${part.value}</span>`;
+    });
 
-        if (word1 !== word2) {
-            // If the words are different, format them as red and bold
-            comparison += `<b style="color: red;">${word2}</b> `;
-        } else {
-            comparison += `${word2} `;
-        }
-
-        // Check if the word ends with a period
-        if (word2.endsWith('.')) {
-            comparison += "</p><p>"; // Close the current paragraph and start a new one
-        }
-    }
-
-    comparison += "</p>"; // Close the last paragraph
+    comparison += "</p>"; // Close the paragraph
     document.querySelector('.div').innerHTML = comparison;
 }
     
-    </script>
+    </script>((
 </body>
 </html>
