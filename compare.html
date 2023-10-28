@@ -53,7 +53,7 @@
     </div>
     <script src="diff.min.js"></script>
     <script>
-        function cleanText(elementId) {
+        function cleanText(elementId) {function cleanText(elementId) {
     setTimeout(() => {
         let textArea = document.getElementById(elementId);
         let text = textArea.value;
@@ -62,11 +62,11 @@
                    .replace(/  +/g, ' ')               // Replace multiple spaces with a single space
                    .replace(/-/g, '')                   // Remove dashes
                    .toLowerCase()                       // Convert to lowercase
-                   .replace(/(\d)\./g, '$1')            // Remove full stops from dates (e.g. "20." becomes "20")
                    .replace(/(\d{2})\.(\d{2})\./g, '$1 $2') // Replace date formats like "22.04." with "22 04"
                    .replace(/\b[a-zA-Z]{2}\./g, match => match.slice(0, -1)) // Replace [any three letters] followed by a fullstop with the letters only
                    .replace(/(\d)([a-zA-Z])/g, '$2')    // Remove digits followed by letters
                    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)); // Delete all single digits that are followed by a letter
+        text = text.replace(/(\d)\./g, '$1\n');          // Replace "1." with "1" and add a line break
         textArea.value = text;
 
         if (elementId === 'text2') {
