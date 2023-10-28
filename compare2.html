@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textvergleich</title>
+    <style>
+        .added { color: green; }
+        .removed { color: red; }
+        .unchanged { color: grey; }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
+    <script>
+        const text1 = 'Hello world';
+        const text2 = 'Hello';
+
+        const diff = Diff.diffWords(text1, text2);
+        const resultContainer = document.getElementById('result');
+
+        diff.forEach(part => {
+            const span = document.createElement('span');
+            span.innerText = part.value;
+            
+            if (part.added) {
+                span.classList.add('added');
+            } else if (part.removed) {
+                span.classList.add('removed');
+            } else {
+                span.classList.add('unchanged');
+            }
+            
+            resultContainer.appendChild(span);
+        });
+    </script>
+</body>
+</html>
