@@ -55,23 +55,25 @@
     </div>
     <script>
         function cleanText() {
-            // Use a small delay to ensure the pasted content is fully in the textarea
-            setTimeout(() => {
-                let text = document.getElementById('text1').value;
-                // Remove double spaces
-                text = text.replace(/  +/g, ' ');
-                // Remove "-"
-                text = text.replace(/-/g, '');
-                // Turn everything into small letters
-                text = text.toLowerCase();
-                // Turn newlines into spaces
-                text = text.replace(/\n/g, ' ');
-                // Remove numbers right before a letter
-                text = text.replace(/(\d)([a-zA-Z])/g, '$2');
-                
-                document.getElementById('text1').value = text;
-            }, 50);
-        }
+    // Use a small delay to ensure the pasted content is fully in the textarea
+        setTimeout(() => {
+            let text = document.getElementById('text1').value;
+            // Turn newlines into spaces
+            text = text.replace(/\n/g, ' ');
+            // Replace all occurrences of two or more spaces with a single space
+            while (text.includes('  ')) {
+                text = text.replace(/  /g, ' ');
+            }
+            // Remove "-"
+            text = text.replace(/-/g, '');
+            // Turn everything into small letters
+            text = text.toLowerCase();
+            // Remove numbers right before a letter
+            text = text.replace(/(\d)([a-zA-Z])/g, '$2');
+            
+            document.getElementById('text1').value = text;
+        }, 50);
+    }
     </script>
 </body>
 </html>
