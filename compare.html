@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPad Screen Design 2</title>
+    <title>iPad Screen Design 3</title>
     <style>
         body {
             display: flex;
@@ -70,15 +70,24 @@
             const text1 = document.getElementById('text1').value;
             const text2 = document.getElementById('text2').value;
             const diff = Diff.diffWords(text1, text2);
-
+        
             let comparison = "<p>"; // Start with an opening paragraph tag
-
+        
             diff.forEach(part => {
-                const color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : 'transparent';
-                const value = part.value.replace(/([.!?])\s/g, "$1<br><br>");
-                comparison += `<span style="background-color: ${color};">${value}</span>`;
+                let style = '';
+                let value = part.value.replace(/([.!?])\s/g, "$1<br><br>");
+        
+                if (part.added) {
+                    style = 'font-weight: bold; background-color: #a6f3a6;';
+                } else if (part.removed) {
+                    style = 'color: grey; background-color: #f8cbcb;';
+                } else {
+                    style = 'background-color: transparent;';
+                }
+        
+                comparison += `<span style="${style}">${value}</span>`;
             });
-
+        
             comparison += "</p>"; // Close the paragraph
             document.querySelector('.div').innerHTML = comparison;
         }
