@@ -75,7 +75,7 @@
 
             diff.forEach(part => {
                 const color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : 'transparent';
-                const value = part.value.replace(/([.!?])\s/g, "$1<br>");
+                const value = part.value.replace(/([.!?])\s/g, "$1<br><br>");
                 comparison += `<span style="background-color: ${color};">${value}</span>`;
             });
 
