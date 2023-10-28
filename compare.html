@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPad Screen Design 3</title>
+    <title>iPad Screen Design 4</title>
     <style>
         body {
             display: flex;
@@ -55,16 +55,21 @@
     <script src="diff.min.js"></script>
     <script>
         function cleanText(elementId) {
-            setTimeout(() => {
-                let text = document.getElementById(elementId).value;
-                text = text.replace(/\n/g, ' ')
-                           .replace(/  +/g, ' ')
-                           .replace(/-/g, '')
-                           .toLowerCase()
-                           .replace(/(\d)([a-zA-Z])/g, '$2');
-                document.getElementById(elementId).value = text;
-            }, 50);
-        }
+    setTimeout(() => {
+        let text = document.getElementById(elementId).value;
+        text = text.replace(/\n/g, ' ')                // Replace new lines with spaces
+                   .replace(/\t/g, ' ')                // Replace tabs with spaces
+                   .replace(/  +/g, ' ')               // Replace multiple spaces with a single space
+                   .replace(/-/g, '')                   // Remove dashes
+                   .toLowerCase()                       // Convert to lowercase
+                   .replace(/(\d)\./g, '$1')            // Remove full stops from dates (e.g. "20." becomes "20")
+                   .replace(/(\d{2})\.(\d{2})\./g, '$1 $2') // Replace date formats like "22.04." with "22 04"
+                   .replace(/\b[a-zA-Z]{3}\./g, match => match.slice(0, -1)) // Replace [any three letters] followed by a fullstop with the letters only
+                   .replace(/(\d)([a-zA-Z])/g, '$2')    // Remove digits followed by letters
+                   .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)); // Delete all single digits that are followed by a letter
+        document.getElementById(elementId).value = text;
+    }, 50);
+}
 
         function compareTexts() {
             const text1 = document.getElementById('text1').value;
@@ -76,7 +81,7 @@
             diff.forEach(part => {
                 let style = '';
                 // Ersetze Punkte, die am Ende eines Satzes stehen, mit zwei <br>, aber ignoriere Datenformate wie "2. Juni"
-                let value = part.value.replace(/([a-zA-Z][.!?])\s/g, "$1<br><br>");
+                const value = part.value.replace(/([.!?])\s/g, "$1<br><br>");
         
                 if (part.added) {
                     style = 'font-weight: bold; background-color: #a6f3a6;';
