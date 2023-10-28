@@ -49,9 +49,10 @@
 <body>
     <div class="content">
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText()"></textarea>
-        <button>Button</button>
         <textarea id="text2" placeholder="TEXT 2"></textarea>
+        <button onclick="compareTexts()">Compare</button>
         <div class="div"></div>
+        
     </div>
     <script>
         function cleanText() {
@@ -74,6 +75,28 @@
             document.getElementById('text1').value = text;
         }, 50);
     }
+    
+    function compareTexts() {
+    const text1 = document.getElementById('text1').value.split(' ');
+    const text2 = document.getElementById('text2').value.split(' ');
+    const maxLength = Math.max(text1.length, text2.length);
+    let comparison = "";
+
+    for (let i = 0; i < maxLength; i++) {
+        const word1 = text1[i] || ""; // Default to an empty string if undefined
+        const word2 = text2[i] || ""; // Default to an empty string if undefined
+
+        if (word1 !== word2) {
+            // If the words are different, format them as red and bold
+            comparison += `<b style="color: red;">${word2}</b> `;
+        } else {
+            comparison += `${word2} `;
+        }
+    }
+
+    document.querySelector('.div').innerHTML = comparison.trim();
+}
+    
     </script>
 </body>
 </html>
