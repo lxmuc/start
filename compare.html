@@ -71,11 +71,12 @@
             const text2 = document.getElementById('text2').value;
             const diff = Diff.diffWords(text1, text2);
         
-            let comparison = "<p>"; // Start with an opening paragraph tag
+            let comparison = "<p>"; // Start mit einem öffnenden Absatz-Tag
         
             diff.forEach(part => {
                 let style = '';
-                let value = part.value.replace(/([.!?])\s/g, "$1<br><br>");
+                // Ersetze Punkte, die am Ende eines Satzes stehen, mit zwei <br>, aber ignoriere Datenformate wie "2. Juni"
+                let value = part.value.replace(/([a-zA-Z][.!?])\s/g, "$1<br><br>");
         
                 if (part.added) {
                     style = 'font-weight: bold; background-color: #a6f3a6;';
@@ -88,7 +89,7 @@
                 comparison += `<span style="${style}">${value}</span>`;
             });
         
-            comparison += "</p>"; // Close the paragraph
+            comparison += "</p>"; // Schließe den Absatz
             document.querySelector('.div').innerHTML = comparison;
         }
     </script>
