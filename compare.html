@@ -36,7 +36,6 @@
 
         .div {
             height: 50px;
-            border: 1px dashed #000;
             white-space: pre-wrap;
         }
 
@@ -56,7 +55,8 @@
     <script>
         function cleanText(elementId) {
     setTimeout(() => {
-        let text = document.getElementById(elementId).value;
+        let textArea = document.getElementById(elementId);
+        let text = textArea.value;
         text = text.replace(/\n/g, ' ')                // Replace new lines with spaces
                    .replace(/\t/g, ' ')                // Replace tabs with spaces
                    .replace(/  +/g, ' ')               // Replace multiple spaces with a single space
@@ -67,7 +67,11 @@
                    .replace(/\b[a-zA-Z]{2}\./g, match => match.slice(0, -1)) // Replace [any three letters] followed by a fullstop with the letters only
                    .replace(/(\d)([a-zA-Z])/g, '$2')    // Remove digits followed by letters
                    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)); // Delete all single digits that are followed by a letter
-        document.getElementById(elementId).value = text;
+        textArea.value = text;
+
+        if (elementId === 'text2') {
+            compareTexts();
+        }
     }, 50);
 }
 
