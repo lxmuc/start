@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPad Screen Design</title>
+    <title>iPad Screen Design 2</title>
     <style>
         body {
             display: flex;
@@ -15,8 +15,7 @@
         }
 
         .content {
-            height: 100%;
-            width: 100%;
+            margin-top: -50px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,76 +23,65 @@
             box-sizing: border-box;
         }
 
-        textarea {
+        textarea, button, .div {
             width: 90%;
+            margin: 20px;
+        }
+
+        textarea {
             height: 300px;
-            margin-bottom: 20px;
             resize: none;
             padding: 10px;
         }
 
         .div {
-            width: 90%;
+            height: 50px;
             border: 1px dashed #000;
-            margin-top: 20px;
-            white-space: pre-wrap; /* Preserve whitespace and newlines */
+            white-space: pre-wrap;
         }
 
         button {
             padding: 10px 20px;
-            margin-top: 20px;
         }
-
     </style>
 </head>
 <body>
     <div class="content">
-        <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText()"></textarea>
-        <textarea id="text2" placeholder="TEXT 2"></textarea>
+        <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
+        <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
         <button onclick="compareTexts()">Compare</button>
         <div class="div"></div>
-        
     </div>
-    <script src="diff.min.js"></script>=
+    <script src="diff.min.js"></script>
     <script>
-        function cleanText() {
-    // Use a small delay to ensure the pasted content is fully in the textarea
-        setTimeout(() => {
-            let text = document.getElementById('text1').value;
-            // Turn newlines into spaces
-            text = text.replace(/\n/g, ' ');
-            // Replace all occurrences of two or more spaces with a single space
-            while (text.includes('  ')) {
-                text = text.replace(/  /g, ' ');
-            }
-            // Remove "-"
-            text = text.replace(/-/g, '');
-            // Turn everything into small letters
-            text = text.toLowerCase();
-            // Remove numbers right before a letter
-            text = text.replace(/(\d)([a-zA-Z])/g, '$2');
-            
-            document.getElementById('text1').value = text;
-        }, 50);
-    }
-    
-    function compareTexts() {
-    const text1 = document.getElementById('text1').value;
-    const text2 = document.getElementById('text2').value;
-    const diff = Diff.diffWords(text1, text2);
+        function cleanText(elementId) {
+            setTimeout(() => {
+                let text = document.getElementById(elementId).value;
+                text = text.replace(/\n/g, ' ')
+                           .replace(/  +/g, ' ')
+                           .replace(/-/g, '')
+                           .toLowerCase()
+                           .replace(/(\d)([a-zA-Z])/g, '$2');
+                document.getElementById(elementId).value = text;
+            }, 50);
+        }
 
-    let comparison = "<p>"; // Start with an opening paragraph tag
+        function compareTexts() {
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+            const diff = Diff.diffWords(text1, text2);
 
-    diff.forEach(part => {
-        // If the part is added or removed, highlight it
-        const color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : 'transparent';
-        comparison += `<span style="background-color: ${color};">${part.value}</span>`;
-    });
+            let comparison = "<p>"; // Start with an opening paragraph tag
 
-    comparison += "</p>"; // Close the paragraph
-    document.querySelector('.div').innerHTML = comparison;
-}
-    
-    </script>((
+            diff.forEach(part => {
+                const color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : 'transparent';
+                const value = part.value.replace(/([.!?])\s/g, "$1<br>");
+                comparison += `<span style="background-color: ${color};">${value}</span>`;
+            });
+
+            comparison += "</p>"; // Close the paragraph
+            document.querySelector('.div').innerHTML = comparison;
+        }
+    </script>
 </body>
 </html>
