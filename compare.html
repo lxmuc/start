@@ -52,10 +52,11 @@
 </head>
 <body>
     <div class="content">
+        <label><input type="checkbox" id="toggleReplaceNo"> Ziffern betonen (1., 2.)</label>=
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
         <button onclick="compareTexts()">Compare</button>
-        <label><input type="checkbox" id="toggleReplaceNo" checked> Ziffern betonen (1., 2.)</label>
+        <button onclick="cleanFields()">clean</button>
         <div class="div"></div>
     </div>
     <script src="diff.min.js"></script>
@@ -119,6 +120,13 @@
             document.querySelector('.div').innerHTML = comparison;
 
             window.scrollTo(0, document.body.scrollHeight);
+        }
+        
+        
+        
+        function cleanFields() {
+            document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
+            document.querySelectorAll('.div').forEach(div => div.innerHTML = '');
         }
 
         // Event listener for the checkboxes
