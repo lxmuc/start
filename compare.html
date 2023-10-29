@@ -60,12 +60,13 @@
     </div>
     <script src="diff.min.js"></script>
     <script>
+    
+        const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+    
         function cleanText(elementId) {
             setTimeout(() => {
                 let textArea = document.getElementById(elementId);
                 let text = textArea.value;
-
-                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
 
                 text = text.replace(/\n{1,2}/g, ' ')
                            .replace(/\t/g, ' ')
