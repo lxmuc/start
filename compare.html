@@ -60,11 +60,9 @@
     </div>
     <script src="diff.min.js"></script>
     <script>
-    
-        const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
-    
         function cleanText(elementId) {
             setTimeout(() => {
+                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
                 let textArea = document.getElementById(elementId);
                 let text = textArea.value;
 
@@ -91,6 +89,7 @@
         }
 
         function compareTexts() {
+            const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
             const text1 = document.getElementById('text1').value;
             const text2 = document.getElementById('text2').value;
             const diff = Diff.diffWords(text1, text2);
