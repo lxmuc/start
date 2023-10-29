@@ -68,7 +68,7 @@
                      .replace(/(\d)([a-zA-Z])/g, '$2')         // Remove digits followed by letters
                      .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)) // Delete all single digits that are followed by a letter
                      .replace(/(\d)\./g, '\n\n$1.')            // Replace "1." with "1." and add a line break
-                     .replace(/(?<!\d)\.(\s|$)/g, '.<br><br>'); // Replace periods not followed by a digit with a line break
+                     .replace(/(?<!\d)\.(\s|$)/g, '.\n\n'); // Replace periods not followed by a digit with a line break
     
           textArea.value = text;
     
