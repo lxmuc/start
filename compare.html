@@ -87,7 +87,7 @@
             diff.forEach(part => {
                 let style = '';
                 // Ersetze Punkte, die am Ende eines Satzes stehen, mit zwei <br>, aber ignoriere Datenformate wie "2. Juni"
-                const value = part.value.replace(/([.!?;])\s/g, "$1<br><br>");
+                const value = part.value.replace(/([.!?;])\s(?!\d)/g, "$1<br><br>");
         
                 if (part.added) {
                     style = 'font-weight: bold; background-color: #a6f3a6;';
