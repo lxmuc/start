@@ -44,6 +44,10 @@
         button {
             padding: 10px 20px;
         }
+
+        label {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -51,63 +55,78 @@
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
         <button onclick="compareTexts()">Compare</button>
+        <label><input type="checkbox" id="toggleReplace" checked> Toggle Number-Dot Replacement</label>
+        <label><input type="checkbox" id="toggleFormat" checked> Toggle Number Formatting</label>
         <div class="div"></div>
     </div>
-<script src="diff.min.js"></script>
-<script>
-      function cleanText(elementId) {
-        setTimeout(() => {
-          let textArea = document.getElementById(elementId);
-          let text = textArea.value;
-          text = text.replace(/\n{1,2}/g, ' ')                // Replace new lines with spaces
-                     .replace(/\t/g, ' ')                      // Replace tabs with spaces
-                     .replace(/  +/g, ' ')                     // Replace multiple spaces with a single space
-                     .replace(/-/g, '')                         // Remove dashes
-                     .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')   // Replace date formats like "22.04." with "22 04"
-                     .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1)) // Replace [any three letters] followed by a fullstop with the letters only
-                     .replace(/(\d)([a-zA-Z])/g, '$2')         // Remove digits followed by letters
-                     .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1)) // Delete all single digits that are followed by a letter
-                     .replace(/(\d)\./g, '\n\n$1.')            // Replace "1." with "1." and add a line break
-                     .replace(/(?<!\d)\.(\s|$)/g, '.\n\n'); // Replace periods not followed by a digit with a line break
-    
-          textArea.value = text;
-    
-          if (elementId === 'text2') {
-            compareTexts();
-          }
-        }, 50);
-      }
-    
-      function compareTexts() {
-        const text1 = document.getElementById('text1').value;
-        const text2 = document.getElementById('text2').value;
-        const diff = Diff.diffWords(text1, text2);
-    
-        let comparison = "<p>"; // Start mit einem öffnenden Absatz-Tag
-    
-        diff.forEach(part => {
-          let style = '';
-    
-          if (part.added) {
-            style = 'font-weight: bold; background-color: #a6f3a6;';
-          } else if (part.removed) {
-            style = 'color: grey; background-color: #f8cbcb;';
-          } else {
-            style = 'background-color: transparent;';
-          }
-    
-          // Format numbers followed by a dot or enclosed in brackets in bold
-          const value = part.value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
-    
-          comparison += `<span style="${style}">${value}</span>`;
-        });
-    
-        comparison += "</p>"; // Schließe den Absatz
-        document.querySelector('.div').innerHTML = comparison;
-        
-        // Scroll to the bottom of the viewport after comparison
-        window.scrollTo(0,document.body.scrollHeight);
-      }
-</script>
+    <script src="diff.min.js"></script>
+    <script>
+        function cleanText(elementId) {
+            setTimeout(() => {
+                let textArea = document.getElementById(elementId);
+                let text = textArea.value;
+
+                const shouldToggleReplace = document.getElementById('toggleReplace').checked;
+
+                text = text.replace(/\n{1,2}/g, ' ')
+                           .replace(/\t/g, ' ')
+                           .replace(/  +/g, ' ')
+                           .replace(/-/g, '')
+                           .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')
+                           .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1))
+                           .replace(/(\d)([a-zA-Z])/g, '$2')
+                           .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))
+                           .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');
+
+                if (shouldToggleReplace) {
+                    text = text.replace(/(\d)\./g, '\n\n$1.');
+                }
+
+                textArea.value = text;
+
+                if (elementId === 'text2') {
+                    compareTexts();
+                }
+            }, 50);
+        }
+
+        function compareTexts() {
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+            const diff = Diff.diffWords(text1, text2);
+
+            const shouldToggleFormat = document.getElementById('toggleFormat').checked;
+
+            let comparison = "<p>";
+
+            diff.forEach(part => {
+                let style = '';
+
+                if (part.added) {
+                    style = 'font-weight: bold; background-color: #a6f3a6;';
+                } else if (part.removed) {
+                    style = 'color: grey; background-color: #f8cbcb;';
+                } else {
+                    style = 'background-color: transparent;';
+                }
+
+                let value = part.value;
+                if (shouldToggleFormat) {
+                    value = value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
+                }
+
+                comparison += `<span style="${style}">${value}</span>`;
+            });
+
+            comparison += "</p>";
+            document.querySelector('.div').innerHTML = comparison;
+
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Event listener for the checkboxes
+        document.getElementById('toggleReplace').addEventListener('change', compareTexts);
+        document.getElementById('toggleFormat').addEventListener('change', compareTexts);
+    </script>
 </body>
 </html>
