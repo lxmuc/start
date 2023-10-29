@@ -88,7 +88,7 @@
                 let style = '';
             // Ersetze Punkte, die am Ende eines Satzes stehen, mit einem Zeilenumbruch,
             // aber ignoriere Zahlenformate wie "1.", "2." usw.
-            const value = part.value.replace(/(?<!\d)\.(\s|$)/g, '.<br>');
+            const value = part.value.replace(/(?<!\d)\.(\s|$)/g, '.<br><br>');
         
                 if (part.added) {
                     style = 'font-weight: bold; background-color: #a6f3a6;';
