@@ -55,8 +55,7 @@
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
         <button onclick="compareTexts()">Compare</button>
-        <label><input type="checkbox" id="toggleReplace" checked> Toggle Number-Dot Replacement</label>
-        <label><input type="checkbox" id="toggleFormat" checked> Toggle Number Formatting</label>
+        <label><input type="checkbox" id="toggleReplaceNo" checked> Ziffern betonen (1., 2.)</label>
         <div class="div"></div>
     </div>
     <script src="diff.min.js"></script>
@@ -66,7 +65,7 @@
                 let textArea = document.getElementById(elementId);
                 let text = textArea.value;
 
-                const shouldToggleReplace = document.getElementById('toggleReplace').checked;
+                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
 
                 text = text.replace(/\n{1,2}/g, ' ')
                            .replace(/\t/g, ' ')
@@ -95,8 +94,6 @@
             const text2 = document.getElementById('text2').value;
             const diff = Diff.diffWords(text1, text2);
 
-            const shouldToggleFormat = document.getElementById('toggleFormat').checked;
-
             let comparison = "<p>";
 
             diff.forEach(part => {
@@ -111,7 +108,7 @@
                 }
 
                 let value = part.value;
-                if (shouldToggleFormat) {
+                if (shouldToggleReplace) {
                     value = value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
                 }
 
@@ -125,8 +122,7 @@
         }
 
         // Event listener for the checkboxes
-        document.getElementById('toggleReplace').addEventListener('change', compareTexts);
-        document.getElementById('toggleFormat').addEventListener('change', compareTexts);
+        document.getElementById('toggleReplaceNo').addEventListener('change', compareTexts);
     </script>
 </body>
 </html>
