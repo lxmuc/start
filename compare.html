@@ -52,7 +52,8 @@
 </head>
 <body>
     <div class="content">
-        <label><input type="checkbox" id="toggleReplaceNo"> Ziffern betonen (1., 2.)</label>=
+        <label><input type="checkbox" id="toggleReplaceNo"> Ziffern betonen (1., 2.)</label>
+        <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
         <button onclick="compareTexts()">Compare</button>
@@ -64,6 +65,7 @@
         function cleanText(elementId) {
             setTimeout(() => {
                 const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+                const shouldToggleSaetze = document.getElementById('toggleSaetze').checked;
                 let textArea = document.getElementById(elementId);
                 let text = textArea.value;
 
@@ -74,12 +76,17 @@
                            .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')
                            .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1))
                            .replace(/(\d)([a-zA-Z])/g, '$2')
-                           .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))
-                           .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');
+                       //    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))
+                       //    .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');
 
                 if (shouldToggleReplace) {
                     text = text.replace(/(\d)\./g, '\n\n$1.');
                 }
+
+                if (shouldToggleSaetze) {
+                    text = text.replace(/(\d)\./g, '\n\n$1.');
+                }
+
 
                 textArea.value = text;
 
