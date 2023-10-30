@@ -84,7 +84,7 @@
                 }
 
                 if (shouldToggleSaetze) {
-                    text = text.replace(/(\d)\./g, '\n\n$1.');
+                    text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n');
                 }
 
 
