@@ -62,39 +62,43 @@
     </div>
     <script src="diff.min.js"></script>
     <script>
-        function cleanText(elementId) {
-            setTimeout(() => {
-                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
-                const shouldToggleSaetze = document.getElementById('toggleSaetze').checked;
-                let textArea = document.getElementById(elementId);
-                let text = textArea.value;
+    
+    
+            function cleanText(elementId) {
+                setTimeout(() => {
+                    const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+                    const shouldToggleSaetze = document.getElementById('toggleSaetze').checked;
+                    let textArea = document.getElementById(elementId);
+                    let text = textArea.value;
+            
+                    text = text.replace(/\n{1,2}/g, ' ')  // Ersetzt ein oder zwei Zeilenumbrüche durch ein Leerzeichen
+                               .replace(/\t/g, ' ')  // Ersetzt Tabulatoren durch ein Leerzeichen
+                               .replace(/  +/g, ' ')  // Ersetzt mehrere Leerzeichen durch ein Leerzeichen
+                               .replace(/-/g, '')  // Entfernt Bindestriche
+                            //   .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')  // Ersetzt Format "xx.xx." durch "xx xx"
+                            //   .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1))  // Entfernt den Punkt nach zwei oder drei Buchstaben
+                               .replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
+                           //    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))  // (auskommentiert) Entfernt Ziffern vor Buchstaben, wenn diese ein einzelnes Wort bilden
+                           //    .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');  // (auskommentiert) Ersetzt einen Punkt am Ende eines Satzes durch einen Punkt gefolgt von zwei Zeilenumbrüchen, außer wenn der Punkt nach einer Ziffer steht
+            
+                    if (shouldToggleReplace) {
+                        text = text.replace(/(\d)\./g, '\n\n$1.');  // Fügt zwei Zeilenumbrüche vor Ziffern ein, die von einem Punkt gefolgt werden
+                    }
+            
+                    if (shouldToggleSaetze) {
+                        // text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');  // Ersetzt einen Punkt am Ende eines Satzes durch einen Punkt gefolgt von zwei Zeilenumbrüchen, außer wenn bestimmte Wörter oder Ziffern dem Punkt vorausgehen
+                        text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)[.;:!?\u2026]/g, '$&\n\n');
+                    }
+            
+                    textArea.value = text;
+            
+                    if (elementId === 'text2') {
+                        compareTexts();
+                    }
+                }, 50);
+            }
 
-                text = text.replace(/\n{1,2}/g, ' ')
-                           .replace(/\t/g, ' ')
-                           .replace(/  +/g, ' ')
-                           .replace(/-/g, '')
-                           .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')
-                           .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1))
-                           .replace(/(\d)([a-zA-Z])/g, '$2')
-                       //    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))
-                       //    .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');
 
-                if (shouldToggleReplace) {
-                    text = text.replace(/(\d)\./g, '\n\n$1.');
-                }
-
-                if (shouldToggleSaetze) {
-                    text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');
-                }
-
-
-                textArea.value = text;
-
-                if (elementId === 'text2') {
-                    compareTexts();
-                }
-            }, 50);
-        }
 
         function compareTexts() {
             const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
