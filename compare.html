@@ -86,7 +86,7 @@
                     }
             
                     if (shouldToggleSaetze) {
-                        // text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');  // Ersetzt einen Punkt am Ende eines Satzes durch einen Punkt gefolgt von zwei Zeilenumbrüchen, außer wenn bestimmte Wörter oder Ziffern dem Punkt vorausgehen
+                        // text = text.replace(/(?<!\b(?:aus|neu|los|rot|alt|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');  // Ersetzt einen Punkt am Ende eines Satzes durch einen Punkt gefolgt von zwei Zeilenumbrüchen, außer wenn bestimmte Wörter oder Ziffern dem Punkt vorausgehen
                         text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)[.;:!?\u2026]/g, '$&\n\n');
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                     }
