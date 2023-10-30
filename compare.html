@@ -86,7 +86,7 @@
                     }
             
                     if (shouldToggleSaetze) {
-                        text = text.replace(/((?<!\b(?:aus|gut|rot|alt|neu|fit|bzw|Nr|[0-9]+)\b)\.)(?![0-9])/g, '.$1\n\n');
+                        text = text.replace(/(?<!\b(?:aus|gut|[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                     }
             
