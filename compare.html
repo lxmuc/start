@@ -96,6 +96,11 @@
                         compareTexts();
                     }
                 }, 50);
+                
+                document.getElementById('toggleReplaceNo').disabled = true;
+                document.getElementById('toggleSaetze').disabled = true;
+                
+                
             }
 
 
@@ -138,10 +143,15 @@
         function cleanFields() {
             document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
             document.querySelectorAll('.div').forEach(div => div.innerHTML = '');
+                            
+            document.getElementById('toggleReplaceNo').disabled = true;
+            document.getElementById('toggleSaetze').disabled = true;
+
         }
 
         // Event listener for the checkboxes
         document.getElementById('toggleReplaceNo').addEventListener('change', compareTexts);
+        document.getElementById('toggleSaetze').addEventListener('change', compareTexts);
     </script>
 </body>
 </html>
