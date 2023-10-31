@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1</title>
+    <title>Compare</title>
     <style>
         body {
             display: flex;
@@ -107,6 +107,7 @@
                         text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)[.!?]/g, match => match + '\n\n');
                         text = text.replace(/(aus\.|ist\.)/g, '$1\n\n'); // ausnahmewörter für punkt
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
+                        text = text.replace(/\n{3,}/g, '\n\n');  // Ersetzt drei Zeilenumbrüche durch zwei Zeilenumbrüche
                     }
             
                     textArea.value = text;
