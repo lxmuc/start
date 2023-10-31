@@ -17,7 +17,7 @@
 
         .btn-checkbox-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             margin: 10px;
         }
         
@@ -65,7 +65,7 @@
             <button onclick="compareTexts()">Vergleichen</button>
             <button onclick="cleanFields()">Leeren</button>
             <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
-            <label><input type="checkbox" id="toggleSaetze">Sätze trennen</label>
+            <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         </div>
             
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
@@ -165,12 +165,15 @@
         }
 
         // Event listener for the checkboxes
-        document.getElementById('toggleReplaceNo').addEventListener('change', compareTexts);
+        document.getElementById('toggleReplaceNo').addEventListener('change', function() {
+        cleanText('text1');
+        cleanText('text2');
+        });
+        
         document.getElementById('toggleSaetze').addEventListener('change', function() {
         cleanText('text1');
-        cleanText('text2')
-        // compareTexts();
-});
+        cleanText('text2');
+        });
     </script>
 </body>
 </html>
