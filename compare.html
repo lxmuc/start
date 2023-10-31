@@ -94,9 +94,9 @@
             
                     textArea.value = text;
             
-                    if (elementId === 'text2') {
-                        compareTexts();
-                    }
+                    // if (elementId === 'text2') {
+                    //    compareTexts();
+                    // }
                 }, 50);
                 
                 // document.getElementById('toggleReplaceNo').disabled = true;
@@ -155,7 +155,8 @@
         document.getElementById('toggleReplaceNo').addEventListener('change', compareTexts);
         document.getElementById('toggleSaetze').addEventListener('change', function() {
         cleanText('text1');
-        compareTexts();
+        cleanText('text2')
+        // compareTexts();
 });
     </script>
 </body>
