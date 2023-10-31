@@ -101,7 +101,7 @@
                     
                         // Fügt zwei Zeilenumbrüche vor „(Ziffer)“ ein
                         text = text.replace(/(\(\d\))/g, '\n\n$1');
-                        text = text.replace(/Nichtamtliches Inhaltsverzeichnis/g, '');
+                        text = text.replace(/Nichtamtliches Inhaltsverzeichnis/g, '\n\n');
                         }
             
                     if (shouldToggleSaetze) {
