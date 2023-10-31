@@ -43,7 +43,7 @@
 
         button {
             padding: 10px 20px;
-            width: 40px;
+            width: 150px;
             font-size: 20px;
         }
 
@@ -54,12 +54,13 @@
 </head>
 <body>
     <div class="content">
+                <button onclick="compareTexts()">Compare</button>
+        <button onclick="cleanFields()">clean</button>
         <label><input type="checkbox" id="toggleReplaceNo"> Ziffern betonen (1., 2.)</label>
         <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
-        <button onclick="compareTexts()">Compare</button>
-        <button onclick="cleanFields()">clean</button>
+
         <div class="div"></div>
     </div>
     <script src="diff.min.js"></script>
