@@ -86,9 +86,8 @@
                     }
             
                     if (shouldToggleSaetze) {
-                        // text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');
-                        text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)\./g, '.\n\n'); // Dr. Nr., abs.
-                        // text = text.replace(/\b(aus)\.\b/g, '$1.\n\n');
+                        // text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)\./g, '.\n\n'); // Dr. Nr., abs.
+                        text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)[.!?]/g, match => match + '\n\n');
                         text = text.replace(/(aus\.|ist\.)/g, '$1\n\n'); // ausnahmewörter für punkt
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                     }
@@ -136,9 +135,9 @@
             });
 
             comparison += "</p>";
-            document.querySelector('.div').innerHTML = comparison;
-
-            window.scrollTo(0, document.body.scrollHeight);
+            const myDiv = document.querySelector('.div');
+            myDiv.innerHTML = comparison;
+            myDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
         
