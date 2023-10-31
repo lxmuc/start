@@ -145,8 +145,10 @@
                 }
 
                 let value = part.value;
+                
                 if (shouldToggleReplace) {
                     value = value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
+                    value = value.split('\n').map(line => line.startsWith('§') ? `<strong>${line}</strong>` : line).join('\n');
                 }
 
                 comparison += `<span style="${style}">${value}</span>`;
