@@ -89,11 +89,8 @@
                                .replace(/\t/g, ' ')  // Ersetzt Tabulatoren durch ein Leerzeichen
                                .replace(/  +/g, ' ')  // Ersetzt mehrere Leerzeichen durch ein Leerzeichen
                                .replace(/-/g, '')  // Entfernt Bindestriche
-                            //   .replace(/(\d{2})\.(\d{2})\./g, '$1 $2')  // Ersetzt Format "xx.xx." durch "xx xx"
-                            //   .replace(/\b[a-zA-Z]{2,3}\./g, match => match.slice(0, -1))  // Entfernt den Punkt nach zwei oder drei Buchstaben
-                               .replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
-                           //    .replace(/\b\d[a-zA-Z]\b/g, match => match.slice(1))  // (auskommentiert) Entfernt Ziffern vor Buchstaben, wenn diese ein einzelnes Wort bilden
-                           //    .replace(/(?<!\d)\.(\s|$)/g, '.\n\n');  // (auskommentiert) Ersetzt einen Punkt am Ende eines Satzes durch einen Punkt gefolgt von zwei Zeilenumbrüchen, außer wenn der Punkt nach einer Ziffer steht
+                             //.replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
+                               .replace(/(\d)([a-zA-Z]{2})/g, '$2')
             
                     if (shouldToggleReplace) {
                         // Fügt zwei Zeilenumbrüche vor Ziffern ein, die von einem Punkt gefolgt werden, es sei denn, es folgt ein deutscher Monat
