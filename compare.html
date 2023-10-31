@@ -153,7 +153,10 @@
 
         // Event listener for the checkboxes
         document.getElementById('toggleReplaceNo').addEventListener('change', compareTexts);
-        document.getElementById('toggleSaetze').addEventListener('change', compareTexts);
+        document.getElementById('toggleSaetze').addEventListener('change', function() {
+        cleanText('text1');
+        compareTexts();
+});
     </script>
 </body>
 </html>
