@@ -15,6 +15,12 @@
             background-color: #f4f4f4;
         }
 
+        .btn-checkbox-container {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+        
         .content {
             display: flex;
             flex-direction: column;
@@ -55,10 +61,13 @@
 </head>
 <body>
     <div class="content">
-                <button onclick="compareTexts()">Compare</button>
-        <button onclick="cleanFields()">clean</button>
-        <label><input type="checkbox" id="toggleReplaceNo"> Ziffern betonen (1., 2.)</label>
-        <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
+        <div class="btn-checkbox-container">
+            <button onclick="compareTexts()">Vergleichen</button>
+            <button onclick="cleanFields()">Leeren</button>
+            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
+            <label><input type="checkbox" id="toggleSaetze">Sätze trennen</label>
+        </div>
+            
         <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
         <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
 
