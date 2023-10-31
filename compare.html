@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compare</title>
+    <title>Compare 2</title>
     <style>
         body {
             display: flex;
@@ -78,7 +78,15 @@
 
 
             function handleUmlauts(text, umlauts) {
-              if (!umlauts) {
+              if (umlauts) {
+                text = text.replace(/ae/g, 'ä')
+                           .replace(/oe/g, 'ö')
+                           .replace(/ue/g, 'ü')
+                           .replace(/Ae/g, 'Ä')
+                           .replace(/Oe/g, 'Ö')
+                           .replace(/Ue/g, 'Ü')
+                           .replace(/ss/g, 'ß');
+              } else {
                 text = text.replace(/ä/g, 'ae')
                            .replace(/ö/g, 'oe')
                            .replace(/ü/g, 'ue')
