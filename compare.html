@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 </title>
+    <title>23</title>
     <style>
         body {
             display: flex;
@@ -86,9 +86,10 @@
                     }
             
                     if (shouldToggleSaetze) {
-                        text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');
-                        text = text.replace(/\b(aus)\.\b/g, '$1.\n\n');
-                        text = text.replace(/(aus\.)/g, '$1\n\n');
+                        // text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-z]{1,3})\b)\./g, '.\n\n');
+                        text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)\./g, '.\n\n'); // Dr. Nr., abs.
+                        // text = text.replace(/\b(aus)\.\b/g, '$1.\n\n');
+                        text = text.replace(/(aus\.|ist\.)/g, '$1\n\n'); // ausnahmewörter für punkt
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                     }
             
