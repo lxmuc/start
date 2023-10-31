@@ -64,7 +64,7 @@
         <div class="btn-checkbox-container">
             <button onclick="compareTexts()">Vergleichen</button>
             <button onclick="cleanFields()">Leeren</button>
-            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.) </label>
+            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
             <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         </div>
             
@@ -76,7 +76,7 @@
     <script src="diff.min.js"></script>
     <script>
     
-    
+// CLEAN TEXT
             function cleanText(elementId) {
                 setTimeout(() => {
                     const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
@@ -100,10 +100,7 @@
                     
                         // Fügt zwei Zeilenumbrüche vor „(Ziffer)“ ein
                         text = text.replace(/(\(\d\))/g, '\n\n$1');
-                        
-                        // "Nichtamtliches Inhaltsverzeichnis"
                         text = text.replace(/Nichtamtliches Inhaltsverzeichnis/g, '');
-                        
                         }
             
                     if (shouldToggleSaetze) {
@@ -116,9 +113,9 @@
             
                     textArea.value = text;
             
-                    if (elementId === 'text1') {
-                    compareTexts();
-                    }
+                    // if (elementId === 'text2') {
+                    //    compareTexts();
+                    // }
                 }, 50);
                 
                 // document.getElementById('toggleReplaceNo').disabled = true;
@@ -126,35 +123,16 @@
                 
                 
             }
-            
-            function formatText(value, shouldToggleReplace) {
-                if (shouldToggleReplace) {
-                    value = value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
-                    value = value.split('\n').map(line => line.startsWith('§') ? `<strong>${line}</strong>` : line).join('\n');
-                }
-                return value;
-            }
-            
-            function compareTexts() {
-                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
-                const text1 = document.getElementById('text1');
-                const text2 = document.getElementById('text2');
-                const myDiv = document.querySelector('.div');
-            
-                // Check if text1 is the active element and text2 is empty
-                if (document.activeElement === text1 && !text2.value.trim()) {
-                    const formattedText = formatText(text1.value, shouldToggleReplace);
-                    myDiv.innerHTML = `<p style="white-space: pre-wrap;">${formattedText}</p>`;
-                    myDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    return;
-                }
-            
-                // Proceed with the comparison if text1 is not selected or text2 is not empty
-                const diff = Diff.diffWords(text1.value, text2.value);
-                let comparison = "<p>";
-            
-                diff.forEach(part => {
-            
+
+        function compareTexts() {
+            const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+            const diff = Diff.diffWords(text1, text2);
+
+            let comparison = "<p>";
+
+            diff.forEach(part => {
                 let style = '';
 
                 if (part.added) {
@@ -181,7 +159,8 @@
             myDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
-    
+        
+        
         function cleanFields() {
             document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
             document.querySelectorAll('.div').forEach(div => div.innerHTML = '');
@@ -201,6 +180,6 @@
         cleanText('text1');
         cleanText('text2');
         });
-        </script>
+    </script>
 </body>
 </html>
