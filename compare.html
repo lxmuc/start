@@ -47,7 +47,6 @@
         button {
             padding: 10px 10px;
             margin: 10px 10px;
-            width: 150px;
             font-size: 17px;
         }
 
@@ -57,23 +56,6 @@
             white-space: pre-line;
             background-color: white;
             width: 700px;
-}
-
-        .div::before, .div::after {
-            content: ''; /* Required for the pseudo-elements to show */
-            position: absolute; /* Position them relative to the .div container */
-            top: 0; /* Align them to the top */
-            height: 100%; /* Make them grow with the container */
-            width: 5px; /* Set their width */
-            background-color: red; /* Set their color */
-        }
-        
-        .div::before {
-            left: -5px; /* Position the bar to the left */
-        }
-        
-        .div::after {
-            right: -5px; /* Position the bar to the right */
         }
 
         label {
