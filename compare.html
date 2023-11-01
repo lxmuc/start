@@ -111,7 +111,7 @@
                     text = text.replace(/\n{1,2}/g, ' ')  // Ersetzt ein oder zwei Zeilenumbrüche durch ein Leerzeichen
                                .replace(/\t/g, ' ')  // Ersetzt Tabulatoren durch ein Leerzeichen
                                .replace(/  +/g, ' ')  // Ersetzt mehrere Leerzeichen durch ein Leerzeichen
-                               .replace(/-/g, '')  // Entfernt Bindestriche
+                             // .replace(/-/g, '')  // Entfernt Bindestriche
                              //.replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
                                .replace(/(\d)([a-zA-Z]{2})/g, '$2')
             
@@ -120,20 +120,25 @@
                         text = text.replace(/(\d)\.(?!\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember))/g, '\n\n$1.');
                     
                         // Fügt zwei Zeilenumbrüche vor „(Ziffer)“ ein
-                        text = text.replace(/(\(\d\))/g, '\n\n$1');
+                        text = text.replace(/(\(\d\))/g, '\n\n$1'); // (1), (2), ...
+                        text = text.replace(/([a-z]\.)/g, '$1\n\n'); // a. , b. ...
                         text = text.replace(/Nichtamtliches Inhaltsverzeichnis/g, '\n\n');
                         }
             
                     if (shouldToggleSaetze) {
                         text = handleUmlauts(text, false);  // Setze auf false, um Umlaute zu ersetzen
-                        // text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)\./g, '.\n\n'); // Dr. Nr., abs.
-                     text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)[.!?]/g, match => match + '\n\n');
-                        // text = text.replace(/(?<![0-9\p{L}]{1,2})(?<!\p{L}{1,3})(?<!\S)[.!?]/gu, match => match + '\n\n');
+
+                        text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)[.!?]/g, match => match + '\n\n');
                         text = text.replace(/(aus\.|ist\.)/g, '$1\n\n'); // ausnahmewörter für punkt
+
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                         text = text.replace(/\n{3,}/g, '\n\n');  // Ersetzt drei Zeilenumbrüche durch zwei Zeilenumbrüche
+                    
+                        text = handleUmlauts(text, true);  // Setze auf false, um Umlaute zu ersetzen
+                    
                     }
-                    text = handleUmlauts(text, true);  // Setze auf false, um Umlaute zu ersetzen
+                    
+                    
                     textArea.value = text;
             
                     // if (elementId === 'text2') {
