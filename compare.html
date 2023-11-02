@@ -118,9 +118,9 @@
                                .replace(/  +/g, ' ')  // Ersetzt mehrere Leerzeichen durch ein Leerzeichen
                              // .replace(/-/g, '')  // Entfernt Bindestriche
                              //.replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
-                               .replace(/(\d)§/g, '§'); // keine Ziffern vor §
-                               .replace(/(\d)([a-zA-Z]{2})/g, '$2');
-                               .replace(/( :)/g, ':'); // leerzeichen vor ":"
+                               .replace(/(\d)([a-zA-Z]{2})/g, '$2')
+                               .replace(/( :)/g, ':') // leerzeichen vor ":"
+                               .replace(/(\d)§/g, '§') // keine Ziffern vor §
             
                     if (shouldToggleReplace) {
                         // Fügt zwei Zeilenumbrüche vor Ziffern ein, die von einem Punkt gefolgt werden, es sei denn, es folgt ein deutscher Monat
