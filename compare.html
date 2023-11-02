@@ -163,13 +163,20 @@
             const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
             const text1 = document.getElementById('text1').value;
             const text2 = document.getElementById('text2').value;
+        
+            // Prüfen, ob text2 leer ist
+            if (text2.trim() === '') {
+                // Zeigt text1 ohne Hervorhebung an
+                document.querySelector('.div').innerHTML = `<p>${text1}</p>`;
+                return; // Beendet die Funktion frühzeitig
+            }
+        
             const diff = Diff.diffWords(text1, text2);
-
             let comparison = "<p>";
-
+        
             diff.forEach(part => {
                 let style = '';
-
+        
                 if (part.added) {
                     style = 'font-weight: bold; background-color: #a6f3a6;';
                 } else if (part.removed) {
@@ -177,17 +184,17 @@
                 } else {
                     style = 'background-color: transparent;';
                 }
-
+        
                 let value = part.value;
                 
                 if (shouldToggleReplace) {
                     value = value.replace(/(\(\d+\)|\d+\.)/g, '<strong>$1</strong>');
                     value = value.split('\n').map(line => line.startsWith('§') ? `<strong>${line}</strong>` : line).join('\n');
                 }
-
+        
                 comparison += `<span style="${style}">${value}</span>`;
             });
-
+        
             comparison += "</p>";
             const myDiv = document.querySelector('.div');
             myDiv.innerHTML = comparison;
