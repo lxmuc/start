@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusted-source.com;">
     <title>Compare</title>
     <style>
         body {
@@ -187,9 +186,18 @@
 // COMPARE TEXT
 
         function compareTexts() {
-            const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
-            const text1 = document.getElementById('text1').value;
-            const text2 = document.getElementById('text2').value;
+                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+                let text1 = document.getElementById('text1').value;
+                let text2 = document.getElementById('text2').value;
+            
+                // Function to sanitize texts by removing certain words
+                function sanitizeText(text) {
+                    return text.replace(/<script>|<body>/gi, '');
+                }
+            
+                // Sanitize text1 and text2
+                text1 = sanitizeText(text1);
+                text2 = sanitizeText(text2);
         
             // Prüfen, ob text2 leer ist
             if (text2.trim() === '') {
