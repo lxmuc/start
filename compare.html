@@ -38,14 +38,13 @@
             position: absolute;
             top: -30px;
             left: 0;
-            width: 60px;
+            width: 80px;
             height: 30px;
             background-color: white;
             color: grey;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #ccc;
             box-sizing: border-box;
         }
 
@@ -73,7 +72,6 @@
             width: 700px;
             padding: 10px;
             margin-top: 20px;
-            border: 1px solid #ccc;
         }
 
         label {
@@ -84,17 +82,18 @@
 <body>
     <div class="content">
         <div class="btn-checkbox-container">
-            <button onclick="compareTexts()">Vergleichen</button>
-            <button onclick="cleanFields()">Leeren</button>
-            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
-            <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
+    
         </div>
 
         <div class="textarea-container">
             <div class="label-box">Text1</div>
             <textarea id="text1" placeholder="..."></textarea>
         </div>
-        
+
+        <div class="textarea-container">
+            <div class="label-box">Text1</div>
+            <textarea id="text1" placeholder="..."></textarea>
+        </div>
         <div class="textarea-container">
             <div class="label-box">Text2</div>
             <textarea id="text2" placeholder="..."></textarea>
@@ -111,7 +110,7 @@
               if (umlauts) {
                 text = text.replace(/ae/g, 'ä')
                            .replace(/oe/g, 'ö')
-                           .replace(/ue/g, 'ü')
+                      //     .replace(/ue/g, 'ü')
                            .replace(/Ae/g, 'Ä')
                            .replace(/Oe/g, 'Ö')
                       //     .replace(/Ue/g, 'Ü')
@@ -119,7 +118,7 @@
               } else {
                 text = text.replace(/ä/g, 'ae')
                            .replace(/ö/g, 'oe')
-                           .replace(/ü/g, 'ue')
+                      //     .replace(/ü/g, 'ue')
                            .replace(/Ä/g, 'Ae')
                            .replace(/Ö/g, 'Oe')
                            .replace(/Ü/g, 'Ue')
