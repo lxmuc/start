@@ -3,7 +3,7 @@
  <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Compare 3</title>
+     <title>Compare 4</title>
      <style>
          body {
             display: flex;
@@ -249,6 +249,23 @@
         cleanText('text1');
         cleanText('text2');
          });
+     
+// Event listener for pasting into textareas
+          document.getElementById('text1').addEventListener('paste', function(e) {
+              // setTimeout is used to ensure the pasted content is present when cleanText runs
+              setTimeout(() => cleanText('text1'), 0);
+          });
+          
+          document.getElementById('text2').addEventListener('paste', function(e) {
+              // Clean the text first
+              setTimeout(() => {
+                  cleanText('text2');
+                  // After cleaning, compare texts
+                  compareTexts();
+              }, 0);
+          });
+
+
      </script>
  </body>
  </html> 
