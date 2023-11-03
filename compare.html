@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+ <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Compare</title>
+     <title>Compare 2</title>
      <style>
          body {
             display: flex;
@@ -83,7 +83,6 @@
              <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
              <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
          </div>
-
          <!-- TEXT1 INPUT -->
          <div class="textarea-container">
              <div class="label-box">Text1</div>
@@ -94,7 +93,6 @@
              <div class="label-box">Text2</div>
              <textarea id="text2" placeholder="..."></textarea>
          </div>
-
          <!-- ERGEBNIS OUTPUT -->
          <div class="textarea-container">
              <div class="label-box">Ergebnis</div>
@@ -179,22 +177,19 @@
             }
             
  // COMPARE TEXT
-
          function compareTexts() {
                  const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
                  let text1 = document.getElementById('text1').value;
                  let text2 = document.getElementById('text2').value;
 
-                 // Function to sanitize texts by removing certain words
-                 function sanitizeText(text) {
-                     return text.replace(/<\/?(script|html|body|div)>/gi, '');
-                  //</body></html>
-                 }
+                  // Function to sanitize texts by removing certain words
+                  function sanitizeText(text) {
+                      return text.replace(/<script>|<body>|<div>|/gi, '');
+                  }
 
-                 // Sanitize text1 and text2
+                  // Sanitize text1 and text2
                  text1 = sanitizeText(text1);
                  text2 = sanitizeText(text2);
-
              // Prüfen, ob text2 leer ist
              if (text2.trim() === '') {
                 // Zeigt text1 ohne Hervorhebung an
@@ -250,7 +245,7 @@
         document.getElementById('toggleSaetze').addEventListener('change', function() {
         cleanText('text1');
         cleanText('text2');
-        });
-    </script>
-</body>
-</html>
+         });
+     </script>
+ </body>
+ </html> 
