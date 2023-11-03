@@ -257,13 +257,17 @@
           });
           
           document.getElementById('text2').addEventListener('paste', function(e) {
-              cleanText('text2');
-              setTimeout(() => {
-                  cleanText('text2');
-                  // After cleaning, compare texts
-                  compareTexts();
-              }, 0);
-          });
+    // Clear the previous timeout if it exists
+    clearTimeout(this.cleanTextTimeout);
+
+    // Schedule cleanText to run after the paste event default action is completed
+    // and store the timeout ID
+    this.cleanTextTimeout = setTimeout(() => {
+        cleanText('text2');
+        // After cleanText has run, compare texts
+        compareTexts();
+    }, 50); // The delay here should be the same as in your cleanText function
+});
 
 
      </script>
