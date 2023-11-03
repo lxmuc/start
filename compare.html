@@ -56,7 +56,6 @@
             padding: 10px;
             font-size: 16px;
             margin-top: 0;
-            border: 1px solid #ccc;
         }
         
         button {
@@ -85,18 +84,17 @@
 <body>
     <div class="content">
         <div class="btn-checkbox-container">
-    
+            <button onclick="compareTexts()">Vergleichen</button>
+            <button onclick="cleanFields()">Leeren</button>
+            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
+            <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         </div>
 
         <div class="textarea-container">
             <div class="label-box">Text1</div>
             <textarea id="text1" placeholder="..."></textarea>
         </div>
-
-        <div class="textarea-container">
-            <div class="label-box">Text1</div>
-            <textarea id="text1" placeholder="..."></textarea>
-        </div>
+        
         <div class="textarea-container">
             <div class="label-box">Text2</div>
             <textarea id="text2" placeholder="..."></textarea>
