@@ -1,11 +1,12 @@
+
 <!DOCTYPE<!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compare</title>
-    <style>
-        body {
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Compare</title>
+     <style>
+         body {
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -14,7 +15,6 @@
             font-size: 16px;
             background-color: #f4f4f4; 
         }
-
         .btn-checkbox-container {
             display: flex;
             flex-direction: row;
@@ -28,12 +28,10 @@
             justify-content: center;
             box-sizing: border-box;
         }
-
         .textarea-container {
             position: relative;
             margin-top: 40px;
         }
-
         .label-box {
             position: absolute;
             top: -30px;
@@ -47,7 +45,6 @@
             justify-content: center;
             box-sizing: border-box;
         }
-
         textarea {
             height: 300px;
             width: 700px;
@@ -63,7 +60,6 @@
             font-size: 17px;
             cursor: pointer;
         }
-
         .div {
             position: relative;
             overflow: auto;
@@ -73,7 +69,78 @@
             padding: 10px;
             margin-top: 20px;
         }
-
+        label {
+            margin-top: 10px;
+        }
+    </style>
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Compare</title>
+     <style>
+         body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #f4f4f4; 
+        }
+        .btn-checkbox-container {
+            display: flex;
+            flex-direction: row;
+            margin: 10px;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .textarea-container {
+            position: relative;
+            margin-top: 40px;
+        }
+        .label-box {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 80px;
+            height: 30px;
+            background-color: white;
+            color: grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 300px;
+            width: 700px;
+            resize: none;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 0;
+        }
+        
+        button {
+            padding: 10px 10px;
+            margin: 10px 10px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .div {
+            position: relative;
+            overflow: auto;
+            white-space: pre-line;
+            background-color: white;
+            width: 700px;
+            padding: 10px;
+            margin-top: 20px;
+        }
         label {
             margin-top: 10px;
         }
@@ -84,12 +151,10 @@
         <div class="btn-checkbox-container">
     
         </div>
-
         <div class="textarea-container">
             <div class="label-box">Text1</div>
             <textarea id="text1" placeholder="..."></textarea>
         </div>
-
         <div class="textarea-container">
             <div class="label-box">Text1</div>
             <textarea id="text1" placeholder="..."></textarea>
@@ -98,7 +163,6 @@
             <div class="label-box">Text2</div>
             <textarea id="text2" placeholder="..."></textarea>
         </div>
-
         <div class="textarea-container">
             <div class="label-box">Ergebnis</div>
             <div class="div"></div> <!-- This is the comparison output div -->
@@ -127,9 +191,7 @@
               return text;
             }
             
-
 // CLEAN TEXT
-
             function cleanText(elementId) {
                 setTimeout(() => {
                     const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
@@ -158,10 +220,8 @@
             
                     if (shouldToggleSaetze) {
                         text = handleUmlauts(text, false);  // Setze auf false, um Umlaute zu ersetzen
-
                         text = text.replace(/(?<!\b(?:[0-9]{1,2}|[a-zA-Z]{1,3})\b)[.!?]/g, match => match + '\n\n');
                         text = text.replace(/(aus\.|ist\.)/g, '$1\n\n'); // ausnahmewörter für punkt
-
                         text = text.replace(/\n /g, '\n');  // Replaces newline + space with newline only
                         text = text.replace(/\n{3,}/g, '\n\n');  // Ersetzt drei Zeilenumbrüche durch zwei Zeilenumbrüche
                     
@@ -183,24 +243,24 @@
                 
             }
             
-// COMPARE TEXT
+ // COMPARE TEXT
 
-        function compareTexts() {
-                const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
-                let text1 = document.getElementById('text1').value;
-                let text2 = document.getElementById('text2').value;
-            
-                // Function to sanitize texts by removing certain words
-                function sanitizeText(text) {
-                    return text.replace(/<script>|<body>/gi, '');
-                }
-            
-                // Sanitize text1 and text2
-                text1 = sanitizeText(text1);
-                text2 = sanitizeText(text2);
-        
-            // Prüfen, ob text2 leer ist
-            if (text2.trim() === '') {
+         function compareTexts() {
+                 const shouldToggleReplace = document.getElementById('toggleReplaceNo').checked;
+                 let text1 = document.getElementById('text1').value;
+                 let text2 = document.getElementById('text2').value;
+
+                 // Function to sanitize texts by removing certain words
+                 function sanitizeText(text) {
+                     return text.replace(/<script>|<body>/gi, '');
+                 }
+
+                 // Sanitize text1 and text2
+                 text1 = sanitizeText(text1);
+                 text2 = sanitizeText(text2);
+
+             // Prüfen, ob text2 leer ist
+             if (text2.trim() === '') {
                 // Zeigt text1 ohne Hervorhebung an
                 document.querySelector('.div').innerHTML = `<p>${text1}</p>`;
                 return; // Beendet die Funktion frühzeitig
@@ -238,18 +298,14 @@
         
         
 // CLEAN FIELDS
-
         function cleanFields() {
             document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
             document.querySelectorAll('.div').forEach(div => div.innerHTML = '');
                             
             // document.getElementById('toggleReplaceNo').disabled = true;
             // document.getElementById('toggleSaetze').disabled = true;
-
         }
-
 // Event listener for the checkboxes
-
         document.getElementById('toggleReplaceNo').addEventListener('change', function() {
         cleanText('text1');
         cleanText('text2');
