@@ -260,7 +260,8 @@
 
                  // Function to sanitize texts by removing certain words
                  function sanitizeText(text) {
-                     return text.replace(/<script>|<body>|<div>|/gi, '');
+                     return text.replace(/<script>|<html>|<body>|<div>|</body>|</html>|</div>|/gi, '');
+                  //</body></html>
                  }
 
                  // Sanitize text1 and text2
