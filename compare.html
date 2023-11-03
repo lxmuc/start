@@ -147,26 +147,33 @@
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="btn-checkbox-container">
-    
+      <!-- BUTTONS UND CHECKBOXES -->
+     <div class="content">
+         <div class="btn-checkbox-container">
+             <button onclick="compareTexts()">Vergleichen</button>
+             <button onclick="cleanFields()">Leeren</button>
+             <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
+             <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
+         </div>
+
+         <!-- TEXT1 INPUT -->
+         <div class="textarea-container">
+             <div class="label-box">Text1</div>
+             <textarea id="text1" placeholder="..."></textarea>
+         </div>
+         <!-- TEXT2 INPUT -->
+         <div class="textarea-container">
+             <div class="label-box">Text2</div>
+             <textarea id="text2" placeholder="..."></textarea>
+         </div>
+
+         <!-- ERGEBNIS OUTPUT -->
+         <div class="textarea-container">
+             <div class="label-box">Ergebnis</div>
+             <div class="div"></div> <!-- This is the comparison output div -->
         </div>
-        <div class="textarea-container">
-            <div class="label-box">Text1</div>
-            <textarea id="text1" placeholder="..."></textarea>
-        </div>
-        <div class="textarea-container">
-            <div class="label-box">Text1</div>
-            <textarea id="text1" placeholder="..."></textarea>
-        </div>
-        <div class="textarea-container">
-            <div class="label-box">Text2</div>
-            <textarea id="text2" placeholder="..."></textarea>
-        </div>
-        <div class="textarea-container">
-            <div class="label-box">Ergebnis</div>
-            <div class="div"></div> <!-- This is the comparison output div -->
-        </div>
+     
+     
     </div>
     <script src="diff.min.js"></script>
     <script>
