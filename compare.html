@@ -124,6 +124,7 @@
             padding: 10px;
             font-size: 16px;
             margin-top: 0;
+            border: none; 
         }
         
         button {
@@ -259,7 +260,7 @@
 
                  // Function to sanitize texts by removing certain words
                  function sanitizeText(text) {
-                     return text.replace(/<script>|<body>/gi, '');
+                     return text.replace(/<script>|<body>|<div>|/gi, '');
                  }
 
                  // Sanitize text1 and text2
