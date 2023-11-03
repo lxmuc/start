@@ -36,13 +36,29 @@
             border-radius: 0;   /* Makes the corners rectangular */
         }
         
-        textarea {
-            height: 300px;
-            width: 700px;
-            resize: none;
-            padding: 10px;
-            font-size: 16px;
-        }
+        .textarea-container {
+    position: relative; /* Establishes a new positioning context */
+    margin-top: 40px; /* Adds space for the label box, adjust as needed */
+}
+
+.label-box {
+    position: absolute; /* Positions the label-box absolutely relative to its container */
+    top: -30px; /* Positions the label-box 30px above the top of the textarea */
+    left: 0; /* Aligns the label-box with the left edge of the textarea */
+    width: 60px; /* Width of the label-box */
+    height: 30px; /* Height of the label-box */
+    background-color: white; /* Background color of the label-box */
+    color: black; /* Text color, adjust as needed */
+    display: flex; /* Use flexbox to center the content */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    border: 1px solid #ccc; /* Adds a border around the label-box, adjust as needed */
+}
+
+textarea {
+    margin-top: 0; /* Removes the top margin from the textarea */
+    /* Other styles remain unchanged */
+}
         
         button {
             padding: 10px 10px;
@@ -72,9 +88,16 @@
             <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
             <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
         </div>
-            
-        <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
-        <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
+        
+        
+        <div class="textarea-container">
+    <div class="label-box">Text1a</div>
+    <textarea id="text1" placeholder="TEXT 1" onpaste="cleanText('text1')"></textarea>
+</div>
+<div class="textarea-container">
+    <div class="label-box">Text2a</div>
+    <textarea id="text2" placeholder="TEXT 2" onpaste="cleanText('text2')"></textarea>
+</div>(
 
         <div class="div"></div>
     </div>
