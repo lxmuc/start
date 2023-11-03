@@ -257,7 +257,7 @@
           });
           
           document.getElementById('text2').addEventListener('paste', function(e) {
-              // Clean the text first
+              cleanText('text2');
               setTimeout(() => {
                   cleanText('text2');
                   // After cleaning, compare texts
