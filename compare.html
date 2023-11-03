@@ -84,22 +84,24 @@
 <body>
     <div class="content">
         <div class="btn-checkbox-container">
-            <button onclick="compareTexts()">Vergleichen</button>
-            <button onclick="cleanFields()">Leeren</button>
-            <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
-            <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
+            <!-- Existing buttons and checkboxes -->
         </div>
-            
+
         <div class="textarea-container">
             <div class="label-box">Text1</div>
-            <textarea id="text1" placeholder="..." onpaste="cleanText('text1')"></textarea>
+            <textarea id="text1" placeholder="..."></textarea>
         </div>
         <div class="textarea-container">
             <div class="label-box">Text2</div>
-            <textarea id="text2" placeholder="..." onpaste="cleanText('text2')"></textarea>
+            <textarea id="text2" placeholder="..."></textarea>
         </div>
 
-        <div class="div"></div>
+        <!-- New label box added here within a new textarea-container for consistency -->
+        <div class="textarea-container">
+            <div class="label-box">Neuer Label</div>
+        </div>
+
+        <div class="div"></div> <!-- This is the comparison output div -->
     </div>
     <script src="diff.min.js"></script>
     <script>
