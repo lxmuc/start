@@ -63,15 +63,17 @@
   }
 
   // PASTE
+
+// Paste text from clipboard
   function pasteText() {
-    if (window.confirm("Are you sure you want to paste the text from the clipboard?")) {
-      navigator.clipboard.readText()
-        .then(text => {
-          document.getElementById('textArea').value = text;
-          saveContent(); // Save after pasting
-        })
-        .catch(err => console.error('Failed to paste text: ', err));
-    }
+    navigator.clipboard.readText()
+      .then(text => {
+        // Append two new lines and the pasted text to the current content
+        const currentContent = document.getElementById('textArea').value;
+        document.getElementById('textArea').value = currentContent + "\n\n" + text;
+        saveContent(); // Save after pasting
+      })
+      .catch(err => console.error('Failed to paste text: ', err));
   }
 
   // LÖSCHEN
