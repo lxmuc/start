@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Textarea Example</title>
+<title>Notizen</title>
 <style>
   html, body {
     height: 100%;
@@ -16,6 +16,7 @@
   #buttonContainer {
     display: flex;
     justify-content: flex-start;
+    font-size: 15px;
     padding-left: 80px; /* Align with the textarea */
     margin-top: 30px;
   }
@@ -39,12 +40,13 @@
 <div id="buttonContainer">
   <button onclick="copyText()">Copy</button>
   <button onclick="pasteText()">Paste</button>
+  <button onclick="clearText()">Löschen</button>
 </div>
 
 <textarea id="textArea" placeholder="Start typing..."></textarea>
 
 <script>
-  // Function to save content to local storage
+  // INHALT SPEICHERN
   function saveContent() {
     try {
       localStorage.setItem('textData', document.getElementById('textArea').value);
@@ -53,20 +55,30 @@
     }
   }
 
-  // Copy text to clipboard
+  // COPY ZWISCHENABLAGE
   function copyText() {
     navigator.clipboard.writeText(document.getElementById('textArea').value)
       .then(() => alert('Text copied to clipboard'))
       .catch(err => console.error('Failed to copy text: ', err));
   }
 
-  // Paste text from clipboard
+  // PASTE
   function pasteText() {
-    // Confirm before pasting
-    if (window.confirm("Sicher?")) {
+    if (window.confirm("Are you sure you want to paste the text from the clipboard?")) {
       navigator.clipboard.readText()
-        .then(text => document.getElementById('textArea').value = text)
+        .then(text => {
+          document.getElementById('textArea').value = text;
+          saveContent(); // Save after pasting
+        })
         .catch(err => console.error('Failed to paste text: ', err));
+    }
+  }
+
+  // LÖSCHEN
+  function clearText() {
+    if (window.confirm("Alter Text wird gelöscht. Sicher?")) {
+      document.getElementById('textArea').value = '';
+      saveContent(); // Save the empty state
     }
   }
 
