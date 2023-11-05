@@ -16,11 +16,11 @@
     font-family: Arial, sans-serif;
     font-size: 12px;
     resize: none;
-    border: none;
-    outline: none;
-    margin: 30px 30px 0 30px;
+    border: none; /* No border */
+    outline: none; /* No focus outline */
+    margin: 30px 30px 0 30px; /* Margin as specified */
     flex-grow: 1;
-    min-height: 400px;
+    min-height: 400px; /* Minimum height */
   }
 </style>
 </head>
@@ -31,7 +31,11 @@
 <script>
   // Function to save content to local storage
   function saveContent() {
-    localStorage.setItem('textData', document.getElementById('textArea').value);
+    try {
+      localStorage.setItem('textData', document.getElementById('textArea').value);
+    } catch (e) {
+      console.error("Could not save to localStorage. Details: ", e);
+    }
   }
 
   // Event listener for textarea changes
@@ -39,9 +43,13 @@
 
   // Load any saved content from local storage when the page loads
   window.onload = function() {
-    var savedContent = localStorage.getItem('textData');
-    if (savedContent) {
-      document.getElementById('textArea').value = savedContent;
+    try {
+      var savedContent = localStorage.getItem('textData');
+      if (savedContent) {
+        document.getElementById('textArea').value = savedContent;
+      }
+    } catch (e) {
+      console.error("Could not load from localStorage. Details: ", e);
     }
   };
 </script>
