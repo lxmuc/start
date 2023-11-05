@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Splitter</title>
-    <style>
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-        }
-
-        #outputText {
-            white-space: pre-line;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Textarea Example</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  textarea {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    resize: none;
+    border: none;
+    outline: none;
+    margin: 30px 30px 0 30px;
+    flex-grow: 1;
+    min-height: 400px;
+  }
+</style>
 </head>
 <body>
-    <textarea id="inputText" placeholder="Paste your text here"></textarea>
-    <div id="outputText"></div>
 
-    <!-- Include the Compromise Library -->
-    <script src="https://unpkg.com/compromise"></script>
-    <script>
-        document.getElementById('inputText').addEventListener('input', function() {
-            const inputText = this.value;
-            const nlp = window.nlp(inputText);
-            const sentences = nlp.sentences().out('array');
+<textarea id="textArea" placeholder="Start typing..."></textarea>
 
-            let outputText = '';
-            sentences.forEach(sentence => {
-                outputText += sentence + '\n\n';
-            });
+<script>
+  // Function to save content to local storage
+  function saveContent() {
+    localStorage.setItem('textData', document.getElementById('textArea').value);
+  }
 
-            document.getElementById('outputText').textContent = outputText;
-        });
-    </script>
+  // Event listener for textarea changes
+  document.getElementById('textArea').addEventListener('input', saveContent);
+
+  // Load any saved content from local storage when the page loads
+  window.onload = function() {
+    var savedContent = localStorage.getItem('textData');
+    if (savedContent) {
+      document.getElementById('textArea').value = savedContent;
+    }
+  };
+</script>
+
 </body>
 </html>
