@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notizen 1</title>
-<link rel="icon" href="IMG_7936" type="image/x-icon">
+<link rel="apple-touch-icon" href="IMG_7935.png">
 <style>
+
   html, body {
     height: 100%;
     margin: 0;
@@ -14,17 +15,23 @@
     flex-direction: column;
     background-color: #f4f4f4; 
   }
+  #headerText {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: darkgrey;
+    margin: 30px 80px 0 80px; /* Align with the textarea */
+    text-align: center;
+  }
   #buttonContainer {
     display: flex;
     justify-content: flex-start;
     padding-left: 80px; /* Align with the textarea */
     margin-top: 30px;
-    
   }
   button {
     margin-right: 10px; /* Spacing between buttons */
     font-size: 15px;
-        
   }
   textarea {
     font-family: Arial, sans-serif;
@@ -40,6 +47,8 @@
 </head>
 <body>
 
+<div id="headerText">Notes</div>
+
 <div id="buttonContainer">
   <button onclick="copyText()">Copy</button>
   <button onclick="pasteText()">Paste</button>
@@ -49,7 +58,6 @@
 <textarea id="textArea" placeholder="Start typing..."></textarea>
 
 <script>
-  // INHALT SPEICHERN
   function saveContent() {
     try {
       localStorage.setItem('textData', document.getElementById('textArea').value);
@@ -58,45 +66,49 @@
     }
   }
 
-  // COPY ZWISCHENABLAGE
+  function updateHeader() {
+    var textAreaContent = document.getElementById('textArea').value;
+    var firstLine = textAreaContent.split('\n')[0] || 'Notes';
+    document.getElementById('headerText').innerText = firstLine;
+  }
+
   function copyText() {
     navigator.clipboard.writeText(document.getElementById('textArea').value)
       .then(() => alert('Text copied to clipboard'))
       .catch(err => console.error('Failed to copy text: ', err));
   }
 
-  // PASTE
-
-// Paste text from clipboard
   function pasteText() {
     navigator.clipboard.readText()
       .then(text => {
-        // Append two new lines and the pasted text to the current content
         const currentContent = document.getElementById('textArea').value;
         document.getElementById('textArea').value = currentContent + "\n\n" + text;
-        saveContent(); // Save after pasting
+        saveContent(); 
+        updateHeader();
       })
       .catch(err => console.error('Failed to paste text: ', err));
   }
 
-  // LÖSCHEN
   function clearText() {
     if (window.confirm("Alter Text wird gelöscht. Sicher?")) {
       document.getElementById('textArea').value = '';
-      saveContent(); // Save the empty state
+      saveContent(); 
+      updateHeader();
     }
   }
 
-  // Event listener for textarea changes
-  document.getElementById('textArea').addEventListener('input', saveContent);
+  document.getElementById('textArea').addEventListener('input', function() {
+    saveContent();
+    updateHeader();
+  });
 
-  // Load any saved content from local storage when the page loads
   window.onload = function() {
     try {
       var savedContent = localStorage.getItem('textData');
       if (savedContent) {
         document.getElementById('textArea').value = savedContent;
       }
+      updateHeader();
     } catch (e) {
       console.error("Could not load from localStorage. Details: ", e);
     }
