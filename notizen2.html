@@ -98,9 +98,19 @@
     }
   }
 
+ function replaceXXX() {
+    var textArea = document.getElementById('textArea');
+    var currentValue = textArea.value;
+    var newValue = currentValue.replace(/xxx/gi, "____________________________________________________________");
+    if (currentValue !== newValue) {
+      textArea.value = newValue;
+    }
+  }
+
   document.getElementById('textArea').addEventListener('input', function() {
     saveContent();
     updateHeader();
+    replaceXXX();
   });
 
   window.onload = function() {
