@@ -70,6 +70,7 @@
     var textAreaContent = document.getElementById('textArea').value;
     var firstLine = textAreaContent.split('\n')[0] || 'Notes';
     document.getElementById('headerText').innerText = firstLine;
+    document.title = firstLine + ' Notes';
   }
 
   function copyText() {
