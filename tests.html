@@ -1,34 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textarea Example 4</title>
-    <style>
-        textarea {
-            width: 300px;
-            height: 800px;
-        }
-    </style>
-    <script>
-        function countCharacters() {
-            var content = document.getElementById('content').value;
-            var cleanedContent = content.replace(/\s{2,}/g, ' ');
-            var characterCount = Math.ceil(cleanedContent.length / 3.5);
-            var percentage = Math.ceil((characterCount / 32000) * 100);
-            var output = document.getElementById('output');
-            output.textContent = 'Result: ' + characterCount + ' Vol: ' + percentage + ' %';
+<style>
 
-            // Set the cleaned content in the second textarea
-            document.getElementById('content2').value = cleanedContent;
-        }
-    </script>
+.circle {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: lightblue;
+}
+
+.heart {
+  font-family: monospace;
+  font-size: 50px;
+  line-height: 1;
+  white-space: pre;
+  color: red;
+}
+
+</style>
 </head>
+
 <body>
-    <textarea id="content" cols="10"></textarea>
-    <button id="EXECUTE" name="EXECUTE" onclick="countCharacters()">Count and Calculate</button>
-    <span id="output"></span>
-    <textarea id="content2" cols="10"></textarea>
+
+<div class="circle">
+<div class="heart">
+♥
+</div>  
+</div>
+
 </body>
 </html>
