@@ -94,7 +94,7 @@
 function changeCircleColors() {
   // Select all the circles that are 'on'
   const offCircles = document.querySelectorAll('.circle:not(.on)');
-  onCircles.forEach(circle => {
+  offCircles.forEach(circle => {
     // Change the circle color to a random color
     circle.style.backgroundColor = getRandomColor();
   });
