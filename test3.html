@@ -33,24 +33,43 @@
 <div id="grid" class="grid"></div>
 
 <script>
-function createCircle() {
+
+function createCircle(id) {
   var circle = document.createElement('div');
   circle.className = 'circle';
-  circle.onclick = function() { this.style.backgroundColor = 'white'; };
+  // Setze eine eindeutige ID oder ein Daten-Attribut
+  circle.id = 'circle-' + id;
+  circle.setAttribute('data-id', id);
+  
+  circle.onclick = function() {
+    // Prüfe die ID oder das Daten-Attribut und reagiere entsprechend
+    if (this.getAttribute('data-id') % 2 === 0) { // Beispielbedingung
+      this.style.backgroundColor = 'red'; // Beispielreaktion
+    } else {
+      this.style.backgroundColor = 'white';
+    }
+  };
+
   var heart = document.createElement('div');
   heart.className = 'heart';
-  heart.textContent = '♥'; // Or you can use another character
+  heart.textContent = '♥';
   circle.appendChild(heart);
   return circle;
 }
 
 function createGrid(rows, cols) {
   var grid = document.getElementById('grid');
-  for(var i = 0; i < rows * cols; i++) {
-    grid.appendChild(createCircle());
+  var id = 0; // Start-ID für Kreise
+  for(var i = 0; i < rows; i++) {
+    for(var j = 0; j < cols; j++) {
+      grid.appendChild(createCircle(id));
+      id++; // Erhöhe die ID für den nächsten Kreis
+    }
   }
 }
 
+// Erstelle ein 20x20 Gitter von Kreisen
+createGrid(20, 20);
 // Create a 20x20 grid of circles
 createGrid(20, 20);
 </script>
