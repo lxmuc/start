@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 <html>
 <head>
 <style>
+
 .circle {
   display: flex;
   align-items: center; 
@@ -13,47 +13,32 @@
 }
 
 .heart {
-  position: relative;
-  top: -10px;
-  font-family: monospace;
-  font-size: 30px;
-  line-height: 1;
-  white-space: pre;
-  color: white;
+position: relative;
+top: -10px;
+font-family: monospace;
+font-size: 30px;
+line-height: 1;
+white-space: pre;
+color: white;
 } 
 
-/* Add classes for different colors */
-.red { background: red; }
-.green { background: green; }
 </style>
 </head>
 
 <body>
 
-<div class="circle" onclick="changeColor(this)">
-  <div class="heart">
-    ♥
-  </div>  
+<div class="circle">
+<div class="heart">
+♥
+</div>  
 </div>
 
-<div class="circle" onclick="changeColor(this)">
-  <div class="heart">
-    ⧉
-  </div>  
-</div>
 
-<script>
-// Function to change the color of the clicked div
-function changeColor(element) {
-  if(element.style.background === 'lightblue') {
-    element.style.background = 'red';
-  } else if(element.style.background === 'red') {
-    element.style.background = 'green';
-  } else {
-    element.style.background = 'lightblue';
-  }
-}
-</script>
+<div class="circle">
+<div class="heart">
+⧉
+</div>  
+</div>
 
 </body>
 </html>
