@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle with ASCII Heart</title>
+<style>
+  .circle {
+    background-color: lightblue;
+    border-radius: 50%; /* Makes the div circular */
+    width: 200px; /* Your desired size */
+    height: 200px; /* Should be equal to width to maintain circle shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heart {
+    color: white;
+    font-family: "Courier New", monospace; /* Ensures that the ASCII art maintains its shape */
+    white-space: pre; /* Maintains spacing */
+    line-height: 1; /* Adjusts the line height to ensure the heart shape is maintained */
+  }
+</style>
+</head>
+<body>
+
+<div class="circle">
+  <pre class="heart">
+  ♥
+  </pre>
+</div>
+
+</body>
+</html>
