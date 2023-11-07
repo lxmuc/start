@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kreise im Raster</title>
+  
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f0f0;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 0px;
+    }
+    
+    .circle {
+      width: 30px;
+      height: 30px;
+      background-color: grey;
+      border-radius: 50%;
+      opacity: 0;
+      transition: border-radius 2s, background-color 2s, opacity 0.3s;
+    }
+    
+    .transformed {
+      border-radius: 0;
+      background-color: darkgrey;
+    }
+  </style>
+  
+</head>
+
+<body>
+
+  <div class="grid"></div>
+
+  <script>
+
+    const grid = document.querySelector('.grid');
+    const totalCircles = 400;
+    
+    for (let i = 0; i < totalCircles; i++) {
+      let circle = document.createElement('div');
+      circle.classList.add('circle');
+      grid.appendChild(circle);
+    }
+    
+    const binaryString = "11101001..."; // 400 characters
+    
+    const circles = document.querySelectorAll('.circle');
+    let grey = true;
+    
+    for (let i = 0; i < binaryString.length; i++) {
+    
+      if (binaryString[i] === '0') {
+        grey = !grey;
+      }
+    
+      if (grey) {
+        circles[i].style.backgroundColor = 'grey';
+      } else {
+        circles[i].style.backgroundColor = 'white';
+      }
+    
+    }
+    
+    // Fade in circles
+    circles.forEach((circle, index) => {
+      setTimeout(() => {
+        circle.style.opacity = 1;
+        if (index === circles.length - 1) {
+          setTimeout(transformCircles, 25); 
+        }
+      }, index * 25);
+    });
+    
+    // Transform circles
+    function transformCircles() {
+      circles.forEach(circle => {
+        circle.classList.add('transformed');
+      });
+    }
+
+  </script>
+
+</body>
+
+</html>
