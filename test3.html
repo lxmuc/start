@@ -44,9 +44,11 @@ function createCircle(id) {
   circle.onclick = function() {
     // Prüfe die ID oder das Daten-Attribut und reagiere entsprechend
     if (this.getAttribute('data-id') % 2 === 0) { // Beispielbedingung
-      this.style.backgroundColor = 'red'; // Beispielreaktion
+      this.style.backgroundColor = 'white'; // Beispielreaktion
+      this.children[0].style.color = 'red'; // Ändere die Schriftfarbe des Herzens
     } else {
-      this.style.backgroundColor = 'white';
+      this.style.backgroundColor = 'lightblue';
+      
     }
   };
 
@@ -67,9 +69,6 @@ function createGrid(rows, cols) {
     }
   }
 }
-
-// Erstelle ein 20x20 Gitter von Kreisen
-createGrid(20, 20);
 // Create a 20x20 grid of circles
 createGrid(20, 20);
 </script>
