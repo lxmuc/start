@@ -1,59 +1,44 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Kreise im Raster</title>
-  
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f0f0f0;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(20, 1fr);
-      gap: 0px;
-    }
-    
-    .circle {
-      width: 30px;
-      height: 30px;
-      background-color: grey;
-      border-radius: 50%;
-      opacity: 0;
-      transition: border-radius 2s, background-color 2s, opacity 0.3s;
-    }
-    
-    .transformed {
-      border-radius: 0;
-      background-color: darkgrey;
-    }
-  </style>
-  
+    <meta charset="UTF-8">
+    <title>Kreise im Raster</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            gap: 0px;
+        }
+        .circle {
+            width: 30px;
+            height: 30px;
+            background-color: grey;
+            border-radius: 50%;
+            opacity: 0;
+            transition: border-radius 2s, background-color 2s, opacity 0.3s;
+        }
+        .white {
+            background-color: white; /* Color for the '0' in the binary string */
+        }
+        .transformed {
+            border-radius: 0;
+            background-color: dark grey;
+        }
+    </style>
 </head>
-
 <body>
-
-  <div class="grid"></div>
-
-  <script>
-
-    const grid = document.querySelector('.grid');
-    const totalCircles = 400;
-    
-    for (let i = 0; i < totalCircles; i++) {
-      let circle = document.createElement('div');
-      circle.classList.add('circle');
-      grid.appendChild(circle);
-    }
-    
-    const binaryString = "111111111111111
+    <div class="grid"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const binaryString = "111111111111111
 111111111111111
 1110011110111110
 111000010011111
@@ -77,44 +62,38 @@
 111111100111111
 111111110011111
 111110111001111
-111110010000111000000000"; // 400 characters
-    
-    const circles = document.querySelectorAll('.circle');
-    let grey = true;
-    
-    for (let i = 0; i < binaryString.length; i++) {
-    
-      if (binaryString[i] === '0') {
-        grey = !grey;
-      }
-    
-      if (grey) {
-        circles[i].style.backgroundColor = 'grey';
-      } else {
-        circles[i].style.backgroundColor = 'white';
-      }
-    
-    }
-    
-    // Fade in circles
-    circles.forEach((circle, index) => {
-      setTimeout(() => {
-        circle.style.opacity = 1;
-        if (index === circles.length - 1) {
-          setTimeout(transformCircles, 25); 
-        }
-      }, index * 25);
-    });
-    
-    // Transform circles
-    function transformCircles() {
-      circles.forEach(circle => {
-        circle.classList.add('transformed');
-      });
-    }
+111110010000111000000000"; // Your binary string goes here
+            const grid = document.querySelector('.grid');
+            const totalCircles = 20 * 20;
+            for (let i = 0; i < totalCircles; i++) {
+                let circle = document.createElement('div');
+                circle.classList.add('circle');
+                // Check if the current index is within the length of the binary string
+                if (i < binaryString.length) {
+                    // If the character at this index of the binary string is '0', add the 'white' class
+                    if (binaryString[i] === '0') {
+                        circle.classList.add('white');
+                    }
+                }
+                grid.appendChild(circle);
+            }
 
-  </script>
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach((circle, index) => {
+                setTimeout(() => {
+                    circle.style.opacity = 1;
+                    if (index === circles.length - 1) {
+                        setTimeout(transformCircles, 25); // Start transformation after the last circle appears
+                    }
+                }, index * 25);
+            });
 
+            function transformCircles() {
+                circles.forEach(circle => {
+                    circle.classList.add('transformed');
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>
