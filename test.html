@@ -81,20 +81,26 @@
     }
   });
   
-  function changeColor(element) {
-  // Generate a random color
-  const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-  // Set the random color as the background of the element
-  element.style.backgroundColor = randomColor;
+ function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
-// Call this function for each .circle element at random intervals
-document.querySelectorAll('.circle').forEach(circle => {
-  // Change color every 2 to 5 seconds for each circle
-  setInterval(() => {
-    changeColor(circle);
-  }, Math.random() * 3000 + 2000);
-});
+function changeCircleColors() {
+  // Select all the circles that are 'on'
+  const onCircles = document.querySelectorAll('.circle.on');
+  onCircles.forEach(circle => {
+    // Change the circle color to a random color
+    circle.style.backgroundColor = getRandomColor();
+  });
+}
+
+// Change the color of 'on' circles every 5 seconds
+setInterval(changeCircleColors, 5000);
   
 </script>
 
