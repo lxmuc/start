@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
       circle.style.opacity = 1;
       if (index === circles.length - 1) {
-        setTimeout(transformCircles, 50); // Start transformation after the last circle appears
+        setTimeout(transformCircles, 25); // Start transformation after the last circle appears
       }
-    }, index * 50);
+    }, index * 25);
   });
 
   function transformCircles() {
