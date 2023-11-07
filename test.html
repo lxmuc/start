@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
   transition: background-color 2s; /* Smooth transition for the background color over 2 seconds */
 }
   .on {
-    background-color: blue;
+    background-color: white;
   }
 </style>
 </head>
@@ -74,7 +75,7 @@
     for(let i = 0; i < row.length; i++) {
       const circle = document.createElement('div');
       circle.className = 'circle';
-      if(row[i] === '0') {
+      if(row[i] === '1') {
         circle.classList.add('on');
       }
       grid.appendChild(circle);
@@ -92,7 +93,7 @@
 
 function changeCircleColors() {
   // Select all the circles that are 'on'
-  const onCircles = document.querySelectorAll('.circle.on');
+  const offCircles = document.querySelectorAll('.circle:not(.on)');
   onCircles.forEach(circle => {
     // Change the circle color to a random color
     circle.style.backgroundColor = getRandomColor();
