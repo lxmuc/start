@@ -3,7 +3,7 @@
 <head>
 <style>
 .circle {
-  display: flex;
+  display: flex; 
   align-items: center;
   justify-content: center;
   width: 60px;
@@ -19,27 +19,27 @@
   font-size: 30px;
   line-height: 1;
   white-space: pre;
-  color: white; 
+  color: white;
 }
 
-.clicked {
+.heart.clicked {
   background: #add8e6;
 }
-</style>
+</style>  
 </head>
 
 <body>
 
-<div class="circle" onclick="this.classList.toggle('clicked')">
-  <div class="heart">
+<div class="circle">
+  <div class="heart" onclick="this.classList.toggle('clicked')">
     ♥
-  </div>  
+  </div>
 </div>
 
-<div class="circle" onclick="this.classList.toggle('clicked')">
-  <div class="heart">
+<div class="circle">
+  <div class="heart" onclick="this.classList.toggle('clicked')">
     ⧉
-  </div> 
+  </div>
 </div>
 
 </body>
