@@ -1,49 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Circle with ASCII Heart</title>
 <style>
-  .circle {
-    background-color: lightblue;
-    border-radius: 50%; /* Makes the div circular */
-    width: 50px; /* Increased size */
-    height: 50px; /* Should be equal to width to maintain circle shape */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-.heart {
-  color: white;
-  font-family: "Courier New", monospace;
-  white-space: pre;
-  font-size: 40px;
-  line-height: 1;
-  position: relative;
-  top: 30px; /* Adjust this value as needed */
-  right: 30px;
+.circle {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: lightblue;
+  transition: background-color 0.3s; /* Smooth transition for color change */
 }
 
-
+.heart {
+  position: relative;
+  top: -10px;
+  font-family: monospace;
+  font-size: 30px;
+  line-height: 1;
+  white-space: pre;
+  color: white;
+} 
 </style>
 </head>
 <body>
 
-<div class="circle">
-  <pre class="heart">
-  ♥
-  </pre>
+<div class="circle" onclick="changeColor(this)">
+  <div class="heart">
+    ♥
+  </div>  
 </div>
 
-<div class="circle">
-  <pre class="heart">
-  ✎
-  </pre>
+<div class="circle" onclick="changeColor(this)">
+  <div class="heart">
+    ⧉
+  </div>  
 </div>
 
-
+<script>
+function changeColor(element) {
+  // This will change the background color of the clicked circle
+  element.style.backgroundColor = 'lightgrey';
+}
+</script>
 
 </body>
 </html>
