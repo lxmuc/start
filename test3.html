@@ -15,7 +15,7 @@
   height: 60px;
   border-radius: 50%;
   background: lightblue;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s; /* Apply transition to background and color */
 }
 
 .heart {
@@ -37,12 +37,12 @@
 function createCircle(id) {
   var circle = document.createElement('div');
   circle.className = 'circle';
-  // Setze eine eindeutige ID oder ein Daten-Attribut
   circle.id = 'circle-' + id;
   circle.setAttribute('data-id', id);
   
-  circle.onclick = function() {
-    // Prüfe die ID oder das Daten-Attribut und reagiere entsprechend
+  var isRedHeart = Math.random() < 0.5; // 50% chance to be true or false
+  
+  // Prüfe die ID oder das Daten-Attribut und reagiere entsprechend
     if (this.getAttribute('data-id') % 2 === 0) { // Beispielbedingung
       this.style.backgroundColor = 'white'; // Beispielreaktion
       this.children[0].style.color = 'red'; // Ändere die Schriftfarbe des Herzens
@@ -55,9 +55,11 @@ function createCircle(id) {
   var heart = document.createElement('div');
   heart.className = 'heart';
   heart.textContent = '♥';
+  heart.style.color = isRedHeart ? 'red' : 'white'; // Set color based on isRedHeart
   circle.appendChild(heart);
   return circle;
 }
+
 
 function createGrid(rows, cols) {
   var grid = document.getElementById('grid');
