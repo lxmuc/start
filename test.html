@@ -10,12 +10,13 @@
     grid-template-columns: repeat(40, 15px);
     grid-gap: 2px;
   }
-  .circle {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: transparent;
-  }
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 2s; /* Smooth transition for the background color over 2 seconds */
+}
   .on {
     background-color: blue;
   }
@@ -79,6 +80,22 @@
       grid.appendChild(circle);
     }
   });
+  
+  function changeColor(element) {
+  // Generate a random color
+  const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+  // Set the random color as the background of the element
+  element.style.backgroundColor = randomColor;
+}
+
+// Call this function for each .circle element at random intervals
+document.querySelectorAll('.circle').forEach(circle => {
+  // Change color every 2 to 5 seconds for each circle
+  setInterval(() => {
+    changeColor(circle);
+  }, Math.random() * 3000 + 2000);
+});
+  
 </script>
 
 </body>
