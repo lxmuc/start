@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Kreise im Raster</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 10px;
+  }
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    border-radius: 50%;
+    opacity: 0;
+    transition: border-radius 2s, background-color 2s, opacity 0.3s;
+  }
+
+  .transformed {
+    border-radius: 0;
+    background-color: blue;
+  }
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const grid = document.querySelector('.grid');
+  const totalCircles = 20 * 20;
+
+  for (let i = 0; i < totalCircles; i++) {
+    let circle = document.createElement('div');
+    circle.classList.add('circle');
+    grid.appendChild(circle);
+  }
+
+  const circles = document.querySelectorAll('.circle');
+  circles.forEach((circle, index) => {
+    setTimeout(() => {
+      circle.style.opacity = 1;
+      if (index === circles.length - 1) {
+        setTimeout(transformCircles, 300); // Start transformation after the last circle appears
+      }
+    }, index * 300);
+  });
+
+  function transformCircles() {
+    circles.forEach(circle => {
+      circle.classList.add('transformed');
+    });
+  }
+});
+</script>
+</body>
+</html>
