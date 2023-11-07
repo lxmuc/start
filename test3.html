@@ -1,0 +1,60 @@
+<html>
+<head>
+<style>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(20, 60px); /* Creates 20 columns */
+  grid-gap: 10px; /* Space between the circles */
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: lightblue;
+  transition: background-color 0.3s;
+}
+
+.heart {
+  position: relative;
+  top: -10px;
+  font-family: monospace;
+  font-size: 30px;
+  line-height: 1;
+  white-space: pre;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="grid" class="grid"></div>
+
+<script>
+function createCircle() {
+  var circle = document.createElement('div');
+  circle.className = 'circle';
+  circle.onclick = function() { this.style.backgroundColor = 'lightgrey'; };
+  var heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.textContent = '♥'; // Or you can use another character
+  circle.appendChild(heart);
+  return circle;
+}
+
+function createGrid(rows, cols) {
+  var grid = document.getElementById('grid');
+  for(var i = 0; i < rows * cols; i++) {
+    grid.appendChild(createCircle());
+  }
+}
+
+// Create a 20x20 grid of circles
+createGrid(20, 20);
+</script>
+
+</body>
+</html>
