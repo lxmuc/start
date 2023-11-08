@@ -47,6 +47,11 @@
       let circle = document.createElement('div');
       circle.classList.add('circle');
       circle.dataset.index = i + 1; // Indexierung der Kreise
+      
+      // Set a random shade of grey for each circle
+      let greyShade = Math.floor(Math.random() * 256); // Generates a number from 0-255
+      circle.style.backgroundColor = `rgb(${greyShade}, ${greyShade}, ${greyShade})`;
+      
       container.appendChild(circle);
 
       // Corrected setTimeout call
@@ -54,7 +59,7 @@
         circle.style.opacity = 1;
         circle.style.transform = 'scale(1)';
         // circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
-        circle.style.transition = `transform 2s, opacity 1.5`;
+        circle.style.transition = `transform 2s, opacity 1.5s`;
       }, delay);
 
       delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
