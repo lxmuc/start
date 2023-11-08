@@ -3,7 +3,7 @@
  <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Compare 4</title>
+     <title>Compare 6</title>
      <style>
          body {
             display: flex;
@@ -86,6 +86,7 @@
              <button onclick="cleanFields()">Leeren</button>
              <label><input type="checkbox" id="toggleReplaceNo"> Gesetz (1., 2.)</label>
              <label><input type="checkbox" id="toggleSaetze"> Sätze trennen</label>
+             <button onclick="removeSpacesAddCommas()">Array</button>
          </div>
          <!-- TEXT1 INPUT -->
          <div class="textarea-container">
@@ -107,6 +108,22 @@
     </div>
     <script src="diff.min.js"></script>
     <script>
+
+
+          function removeSpacesAddCommas() {
+              let textArea = document.getElementById('text1');
+              let text = textArea.value;
+              
+              // Remove all spaces
+              text = text.replace(/\s+/g, '');
+              
+              // Add a comma after each character
+              text = text.split('').join(',');
+              
+              // Update the textarea with the transformed text
+              textArea.value = text;
+          }
+
             function handleUmlauts(text, umlauts) {
               if (umlauts) {
                 text = text.replace(/ae/g, 'ä')
