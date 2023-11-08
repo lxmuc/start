@@ -39,6 +39,10 @@
 document.addEventListener('DOMContentLoaded', function () {
   const grid = document.querySelector('.grid');
   const totalCircles = 20 * 20;
+  const halfPoint = totalCircles / 2; // 200
+  let initialDelay = 1000; // Startverzögerung für den ersten Kreis in Millisekunden
+  let finalDelay = 1; // Endverzögerung für den 200. Kreis in Millisekunden
+  let delayDecreaseFactor = Math.pow(finalDelay / initialDelay, 1 / (halfPoint - 1)); // Faktor für die Verzögerungsabnahme
 
   for (let i = 0; i < totalCircles; i++) {
     let circle = document.createElement('div');
@@ -47,26 +51,24 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const circles = document.querySelectorAll('.circle');
-  // Die maximale Verzögerung ist für die äußeren Kreise vorgesehen.
-  const maxDelay = 3000; // Maximale Verzögerung in Millisekunden
+
+  let currentDelay = initialDelay;
 
   circles.forEach((circle, index) => {
-    // Parabel: (4 * (x - h)^2) / k, wobei h die Mitte ist und k bestimmt, wie "breit" die Parabel ist
-    let x = index;
-    let h = totalCircles / 2;
-    let k = totalCircles;
-    let parabolaDelay = (4 * Math.pow(x - h, 2)) / k;
-
-    // Berechnet die Verzögerung so, dass die Kreise in der Mitte schneller erscheinen
-    let delay = maxDelay * (1 - (parabolaDelay / maxDelay));
-
     setTimeout(() => {
       circle.style.opacity = 1;
-      // Nachdem der letzte Kreis sichtbar wurde, starten wir die Transformation
       if (index === circles.length - 1) {
         setTimeout(transformCircles, 300);
       }
-    }, delay);
+    }, currentDelay);
+
+    if (index < halfPoint - 1) {
+      // Erste 200 Kreise: Verzögerung halbiert sich mit jedem Kreis
+      currentDelay *= delayDecreaseFactor;
+    } else {
+      // Zweite 200 Kreise: Verzögerung verdoppelt sich mit jedem Kreis
+      currentDelay /= delayDecreaseFactor;
+    }
   });
 
   function transformCircles() {
@@ -75,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
 </script>
 </body>
 </html>
