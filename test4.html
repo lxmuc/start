@@ -39,20 +39,30 @@
 document.addEventListener('DOMContentLoaded', function () {
   const grid = document.querySelector('.grid');
   const totalCircles = 20 * 20;
+
   for (let i = 0; i < totalCircles; i++) {
     let circle = document.createElement('div');
     circle.classList.add('circle');
     grid.appendChild(circle);
   }
+
   const circles = document.querySelectorAll('.circle');
+  const midPoint = totalCircles / 2;
+  const maxDelay = 3000; // Maximaler Verzögerungswert
+
   circles.forEach((circle, index) => {
+    // Parabel mit Scheitelpunkt in der Mitte der Gesamtzahl der Kreise
+    const parabola = -4 * Math.pow(index - midPoint, 2) / totalCircles + 1;
+    const delay = maxDelay * parabola;
+
     setTimeout(() => {
       circle.style.opacity = 1;
       if (index === circles.length - 1) {
-        setTimeout(transformCircles, 25); // Start transformation after the last circle appears
+        setTimeout(transformCircles, 300); // Start transformation after the last circle appears
       }
-    }, index * 25);
+    }, delay);
   });
+
   function transformCircles() {
     circles.forEach(circle => {
       circle.classList.add('transformed');
