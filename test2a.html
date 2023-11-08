@@ -43,14 +43,13 @@
 </head>
 <body>
 
-<!-- Sliders for controlling animation speeds -->
 <div id="controls">
   <label for="transform-speed-slider">Transformation Speed:</label>
   <input type="range" id="transform-speed-slider" min="0.1" max="10" value="2" step="0.1">
-
+  
   <label for="opacity-speed-slider">Opacity Speed:</label>
   <input type="range" id="opacity-speed-slider" min="0.1" max="10" value="2.5" step="0.1">
-
+  
   <label for="overall-speed-slider">Overall Speed:</label>
   <input type="range" id="overall-speed-slider" min="0.1" max="2" value="1" step="0.01">
 </div>
@@ -60,67 +59,62 @@
 </div>
 
 <script>
-  window.onload = function() {
-    const transformSpeedSlider = document.getElementById('transform-speed-slider');
-    const opacitySpeedSlider = document.getElementById('opacity-speed-slider');
-    const overallSpeedSlider = document.getElementById('overall-speed-slider');
+  let timeouts = []; // Array to keep track of timeouts
 
-    let transformSpeed = parseFloat(transformSpeedSlider.value);
-    let opacitySpeed = parseFloat(opacitySpeedSlider.value);
-    let overallSpeed = parseFloat(overallSpeedSlider.value);
-
-    transformSpeedSlider.oninput = function() {
-      transformSpeed = parseFloat(this.value);
-    };
-
-    opacitySpeedSlider.oninput = function() {
-      opacitySpeed = parseFloat(this.value);
-    };
-
-    overallSpeedSlider.oninput = function() {
-      overallSpeed = parseFloat(this.value);
-    };
-
-    generateCircles(transformSpeed, opacitySpeed, overallSpeed);
-  };
+  function clearCirclesAndTimeouts() {
+    const container = document.getElementById('grid-container');
+    container.innerHTML = ''; // Clear existing circles
+    timeouts.forEach(clearTimeout); // Clear existing timeouts
+    timeouts = []; // Reset the timeouts array
+  }
 
   function generateCircles(transformSpeed, opacitySpeed, overallSpeed) {
+    clearCirclesAndTimeouts(); // Clear existing animation before starting a new one
+    
     const container = document.getElementById('grid-container');
-    let delay = 10000; // Start delay in milliseconds
+    let delay = 10000 * overallSpeed; // Start delay in milliseconds adjusted by overall speed
     const delayDecreaseFactor = Math.pow(0.1 / 1000, 1 / 399); // Exponential decrease factor
 
     for (let i = 0; i < 400; i++) {
       let circle = document.createElement('div');
       circle.classList.add('circle');
-      circle.dataset.index = i + 1; // Indexing the circles
+      container.appendChild(circle);
       
       // Set a random shade of grey for each circle
       let greyShade = Math.floor(Math.random() * 156) + 100;
       circle.style.backgroundColor = `rgb(${greyShade}, ${greyShade}, ${greyShade})`;
-      
-      container.appendChild(circle);
 
       // Apply animation with delay and transition speeds
-      setTimeout(() => {
+      let timeout = setTimeout(() => {
         circle.style.opacity = 1;
         circle.style.transform = 'scale(1)';
         circle.style.transition = `transform ${transformSpeed}s, opacity ${opacitySpeed}s`;
-      }, delay * overallSpeed);
+      }, delay);
 
+      timeouts.push(timeout);
       delay *= delayDecreaseFactor; // Exponential decrease of delay
     }
-
-    // Calculate the total duration for a final animation step
-    let totalDuration = delay + (3000 * overallSpeed); // plus the transition duration of the last circle
-    
-    // A final animation after the circles have appeared
-    setTimeout(() => {
-      let randomIndex = Math.floor(Math.random() * 400);
-      let randomCircle = container.children[randomIndex];
-      randomCircle.style.transition = 'background-color 5s';
-      randomCircle.style.backgroundColor = 'blue'; // Change the color to blue
-    }, totalDuration);
   }
+
+  window.onload = function() {
+    const transformSpeedSlider = document.getElementById('transform-speed-slider');
+    const opacitySpeedSlider = document.getElementById('opacity-speed-slider');
+    const overallSpeedSlider = document.getElementById('overall-speed-slider');
+
+    function restartAnimation() {
+      let transformSpeed = parseFloat(transformSpeedSlider.value);
+      let opacitySpeed = parseFloat(opacitySpeedSlider.value);
+      let overallSpeed = parseFloat(overallSpeedSlider.value);
+      generateCircles(transformSpeed, opacitySpeed, overallSpeed);
+    }
+
+    transformSpeedSlider.oninput = restartAnimation;
+    opacitySpeedSlider.oninput = restartAnimation;
+    overallSpeedSlider.oninput = restartAnimation;
+
+    // Start the animation with initial values
+    restartAnimation();
+  };
 </script>
 
 </body>
