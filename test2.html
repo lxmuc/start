@@ -65,15 +65,12 @@
       delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
     }
     
-    // ... inside the generateCircles function
-
-    // Assume delay is the delay for the last circle
-    let totalDuration = delay + 2000; // plus the transition duration of the last circle, assumed to be 2 seconds
+    let totalDuration = delay + 3000; // plus the transition duration of the last circle, assumed to be 2 seconds
     
     setTimeout(() => {
       let randomIndex = Math.floor(Math.random() * 400); // Pick a random circle index
       let randomCircle = container.children[randomIndex];
-      randomCircle.style.transition = 'background-color 3s'; // Slow transition for background color change
+      randomCircle.style.transition = 'background-color 5s'; // Slow transition for background color change
       randomCircle.style.backgroundColor = 'red'; // Set the color to red
     }, totalDuration);
     
