@@ -1,97 +1,52 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Kreise im Raster mit Regler</title>
-<style>
-  /* Zentriert den Inhalt des Body-Tags komplett */
-  body {
-    display: flex;
-    justify-content: center; /* Zentriert horizontal */
-    align-items: center; /* Zentriert vertikal */
-    min-height: 100vh; /* Mindesthöhe auf Fensterhöhe setzen */
-    margin: 0; /* Entfernt den Standard-Margin */
-  }
-  /* Stil für den Container, der das Raster hält */
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(20, 30px);
-    grid-template-rows: repeat(20, 30px);
-    gap: 0;
-  }
-  /* Stil für die Kreise */
-  .circle {
-    width: 30px;
-    height: 30px;
-    background-color: gray;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  /* Stil für den Geschwindigkeitsregler */
-  #speedControlWrapper {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-</style>
+  <style>
+    #container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: grey;
+      position: absolute;
+    }
+  </style>
 </head>
 <body>
 
-<div id="grid" class="grid-container"></div>
-<label for="speedControl">Animationsgeschwindigkeit:</label>
-<input type="range" id="speedControl" min="0.1" max="1000" value="20">
+  <div id="container"></div>
 
-<script>
-  const grid = document.getElementById('grid');
-  let circles = [];
-  let timeouts = [];
-
-  function createCircles() {
-    grid.innerHTML = '';
-    circles = [];
-    timeouts.forEach(clearTimeout); // Clear existing timeouts
-    timeouts = [];
-
-    for (let i = 0; i < 400; i++) {
+  <script>
+    const numCircles = 400;
+    const gap = 0;
+    const circleSize = 30;
+    
+    const container = document.getElementById('container');
+    container.style.width = `${numCircles / 20 * (circleSize + gap)}px`;
+    container.style.height = `${numCircles / 20 * (circleSize + gap)}px`;
+    
+    for (let i = 0; i < numCircles; i++) {
       const circle = document.createElement('div');
       circle.className = 'circle';
-      circle.dataset.index = i + 1;
-      grid.appendChild(circle);
-      circles.push(circle);
-    }
-  }
-
-  function startAnimation(speed) {
-    let delay = 1000 / speed;
-    let step = (1000 - 100) / 200; // Delay decrement step
-
-    circles.forEach((circle, index) => {
-      let timeout = setTimeout(() => {
+      circle.style.left = `${(i % 20) * (circleSize + gap)}px`; 
+      circle.style.top = `${Math.floor(i / 20) * (circleSize + gap)}px`;
+      
+      container.appendChild(circle);
+      
+      const delay = Math.pow(10, Math.log10(1) + (Math.log10(0.1) - Math.log10(1)) * (i / (numCircles - 1)));
+      
+      setTimeout(() => {
         circle.style.opacity = 1;
-      }, delay);
-
-      timeouts.push(timeout);
-
-      if (index < 200) {
-        delay = Math.max(100, delay - step);
-      } else {
-        delay = Math.min(1000, delay + step);
-      }
-    });
-  }
-
-  // Initialize circles and start animation
-  createCircles();
-  startAnimation(50); // Start with medium speed
-
-  // Speed control
-  document.getElementById('speedControl').addEventListener('input', function() {
-    createCircles(); // Recreate circles to restart the animation
-    startAnimation(this.value);
-  });
-</script>
+      }, delay * 1000);
+    }
+    
+  </script>
 
 </body>
 </html>
