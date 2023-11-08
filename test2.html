@@ -49,12 +49,12 @@
       circle.dataset.index = i + 1; // Indexierung der Kreise
       container.appendChild(circle);
 
-      // Verzögert das Erscheinen jedes Kreises
-      setTimeout(() => {
-        circle.style.opacity = 1;
-        circle.style.transform = 'scale(1)';
-        circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
-      }, 1000 * (i * delay)); // Startzeitpunkt des Erscheinens
+      // Corrected setTimeout call
+setTimeout(() => {
+  circle.style.opacity = 1;
+  circle.style.transform = 'scale(1)';
+  circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
+}, delay);
 
       delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
     }
