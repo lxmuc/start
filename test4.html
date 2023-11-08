@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const grid = document.querySelector('.grid');
   const totalCircles = 20 * 20;
   const halfPoint = totalCircles / 2; // 200
-  let initialDelay = 1000; // Startverzögerung für den ersten Kreis in Millisekunden
-  let finalDelay = 1; // Endverzögerung für den 200. Kreis in Millisekunden
+  let initialDelay = 2000; // Startverzögerung für den ersten Kreis in Millisekunden (2 Sekunden)
+  let finalDelay = 10; // Endverzögerung für den 200. Kreis in Millisekunden
   let delayDecreaseFactor = Math.pow(finalDelay / initialDelay, 1 / (halfPoint - 1)); // Faktor für die Verzögerungsabnahme
 
   for (let i = 0; i < totalCircles; i++) {
