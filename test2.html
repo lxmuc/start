@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Kreise im Raster</title>
+<title>Kreise im Raster mit Regler</title>
 <style>
   .grid-container {
     display: grid;
@@ -16,39 +16,61 @@
     background-color: gray;
     border-radius: 50%;
     opacity: 0;
+    transition: opacity 0.5s;
+  }
+  #speedControl {
+    margin: 20px 0;
   }
 </style>
 </head>
 <body>
 
 <div id="grid" class="grid-container"></div>
+<input type="range" id="speedControl" min="1" max="100" value="50">
 
 <script>
   const grid = document.getElementById('grid');
+  let circles = [];
 
-  for (let i = 0; i < 400; i++) {
-    const circle = document.createElement('div');
-    circle.className = 'circle';
-    circle.dataset.index = i + 1;
-    grid.appendChild(circle);
+  function createCircles() {
+    grid.innerHTML = ''; // Reset grid
+    circles = []; // Reset circles array
+    for (let i = 0; i < 400; i++) {
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      circle.dataset.index = i + 1;
+      grid.appendChild(circle);
+      circles.push(circle);
+    }
   }
 
-  const circles = document.querySelectorAll('.circle');
-  let delay = 1000; // Start mit 1 Sekunde
-  const increaseRate = 4.95; // Exponentielle Steigerungsrate für den Übergang
+  function startAnimation(speed) {
+    let delay = 1000 / speed; // Start delay based on speed
+    const minDelay = 100; // Minimum delay
+    const maxDelay = 1000; // Maximum delay
+    const step = (maxDelay - minDelay) / 200; // Step size for delay changes
 
-  circles.forEach((circle, index) => {
-    setTimeout(() => {
-      circle.style.opacity = 1;
-    }, delay);
+    circles.forEach((circle, index) => {
+      setTimeout(() => {
+        circle.style.opacity = 1;
+      }, delay);
 
-    if (index < 200) {
-      delay *= (200 - index) / (200 - index + 1);
-    } else {
-      delay *= (index - 199) / (index - 200);
-    }
+      if (index < 200) {
+        delay = Math.max(minDelay, delay - step);
+      } else {
+        delay = Math.min(maxDelay, delay + step);
+      }
+    });
+  }
 
-    if (delay < 100) delay = 100; // Minimale Verzögerung ist 0,1 Sekunde
+  // Initialize circles and start animation
+  createCircles();
+  startAnimation(50); // Start with medium speed
+
+  // Speed control
+  document.getElementById('speedControl').addEventListener('input', function() {
+    startAnimation(this.value);
+    createCircles(); // Recreate circles to restart the animation
   });
 </script>
 
