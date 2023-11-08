@@ -59,9 +59,9 @@
                 setTimeout(() => {
                     circle.style.opacity = 1;
                     if (index === circles.length - 1) {
-                        setTimeout(transformCircles, 25); // Start transformation after the last circle appears
+                        setTimeout(transformCircles, 10); // Start transformation after the last circle appears
                     }
-                }, index * 25);
+                }, index * 10);
             });
 
             function transformCircles() {
