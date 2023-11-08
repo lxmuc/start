@@ -47,21 +47,34 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const circles = document.querySelectorAll('.circle');
-  const midPoint = totalCircles / 2;
-  const maxDelay = 3000; // Maximaler Verzögerungswert
+  // Die maximale Verzögerung ist für die äußeren Kreise vorgesehen.
+  const maxDelay = 3000; // Maximale Verzögerung in Millisekunden
 
   circles.forEach((circle, index) => {
-    // Parabel mit Scheitelpunkt in der Mitte der Gesamtzahl der Kreise
-    const parabola = -4 * Math.pow(index - midPoint, 2) / totalCircles + 1;
-    const delay = maxDelay * parabola;
+    // Parabel: (4 * (x - h)^2) / k, wobei h die Mitte ist und k bestimmt, wie "breit" die Parabel ist
+    let x = index;
+    let h = totalCircles / 2;
+    let k = totalCircles;
+    let parabolaDelay = (4 * Math.pow(x - h, 2)) / k;
+
+    // Berechnet die Verzögerung so, dass die Kreise in der Mitte schneller erscheinen
+    let delay = maxDelay * (1 - (parabolaDelay / maxDelay));
 
     setTimeout(() => {
       circle.style.opacity = 1;
+      // Nachdem der letzte Kreis sichtbar wurde, starten wir die Transformation
       if (index === circles.length - 1) {
-        setTimeout(transformCircles, 300); // Start transformation after the last circle appears
+        setTimeout(transformCircles, 300);
       }
     }, delay);
   });
+
+  function transformCircles() {
+    circles.forEach(circle => {
+      circle.classList.add('transformed');
+    });
+  }
+});
 
   function transformCircles() {
     circles.forEach(circle => {
