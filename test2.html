@@ -28,7 +28,6 @@
     border-radius: 50%;
     opacity: 0;
     transform: scale(0);
-    transition: transform 1s, opacity 1s;
   }
 </style>
 </head>
@@ -47,14 +46,15 @@
     for (let i = 0; i < 400; i++) {
       let circle = document.createElement('div');
       circle.classList.add('circle');
-      circle.style.transition = `transform ${delay / 1000}s, opacity ${delay / 1000}s`;
+      circle.dataset.index = i + 1; // Indexierung der Kreise
       container.appendChild(circle);
 
       // Verzögert das Erscheinen jedes Kreises
       setTimeout(() => {
         circle.style.opacity = 1;
         circle.style.transform = 'scale(1)';
-      }, delay * i);
+        circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
+      }, 1000 * (i * delay)); // Startzeitpunkt des Erscheinens
 
       delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
     }
