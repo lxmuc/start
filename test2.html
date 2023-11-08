@@ -1,52 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <style>
-    #container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    
-    .circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: grey;
-      position: absolute;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kreisraster Animation</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+
+  #grid-container {
+    display: grid;
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20, 30px);
+    gap: 0;
+  }
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 1s, opacity 1s;
+  }
+</style>
 </head>
 <body>
 
-  <div id="container"></div>
+<div id="grid-container">
+  <!-- Die Kreise werden über JavaScript hinzugefügt -->
+</div>
 
-  <script>
-    const numCircles = 400;
-    const gap = 0;
-    const circleSize = 30;
-    
-    const container = document.getElementById('container');
-    container.style.width = `${numCircles / 20 * (circleSize + gap)}px`;
-    container.style.height = `${numCircles / 20 * (circleSize + gap)}px`;
-    
-    for (let i = 0; i < numCircles; i++) {
-      const circle = document.createElement('div');
-      circle.className = 'circle';
-      circle.style.left = `${(i % 20) * (circleSize + gap)}px`; 
-      circle.style.top = `${Math.floor(i / 20) * (circleSize + gap)}px`;
-      
+<script>
+  function generateCircles() {
+    const container = document.getElementById('grid-container');
+    let delay = 1000; // Startverzögerung in Millisekunden
+    const delayDecreaseFactor = Math.pow(0.1 / 1000, 1 / 399); // Exponentieller Abnahmefaktor
+
+    for (let i = 0; i < 400; i++) {
+      let circle = document.createElement('div');
+      circle.classList.add('circle');
+      circle.style.transition = `transform ${delay / 1000}s, opacity ${delay / 1000}s`;
       container.appendChild(circle);
-      
-      const delay = Math.pow(10, Math.log10(1) + (Math.log10(0.1) - Math.log10(1)) * (i / (numCircles - 1)));
-      
+
+      // Verzögert das Erscheinen jedes Kreises
       setTimeout(() => {
         circle.style.opacity = 1;
-      }, delay * 1000);
+        circle.style.transform = 'scale(1)';
+      }, delay * i);
+
+      delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
     }
-    
-  </script>
+  }
+
+  // Initialisiere die Kreisgenerierung, wenn das Dokument geladen ist
+  window.onload = generateCircles;
+</script>
 
 </body>
 </html>
