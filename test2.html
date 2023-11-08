@@ -16,7 +16,7 @@
     background-color: gray;
     border-radius: 50%;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.5s ease-in-out;
   }
   #speedControl {
     margin: 20px 0;
@@ -26,15 +26,20 @@
 <body>
 
 <div id="grid" class="grid-container"></div>
-<input type="range" id="speedControl" min="1" max="100" value="50">
+<label for="speedControl">Animationsgeschwindigkeit:</label>
+<input type="range" id="speedControl" min="1" max="100" value="20">
 
 <script>
   const grid = document.getElementById('grid');
   let circles = [];
+  let timeouts = [];
 
   function createCircles() {
-    grid.innerHTML = ''; // Reset grid
-    circles = []; // Reset circles array
+    grid.innerHTML = '';
+    circles = [];
+    timeouts.forEach(clearTimeout); // Clear existing timeouts
+    timeouts = [];
+
     for (let i = 0; i < 400; i++) {
       const circle = document.createElement('div');
       circle.className = 'circle';
@@ -45,20 +50,20 @@
   }
 
   function startAnimation(speed) {
-    let delay = 1000 / speed; // Start delay based on speed
-    const minDelay = 100; // Minimum delay
-    const maxDelay = 1000; // Maximum delay
-    const step = (maxDelay - minDelay) / 200; // Step size for delay changes
+    let delay = 1000 / speed;
+    let step = (1000 - 100) / 200; // Delay decrement step
 
     circles.forEach((circle, index) => {
-      setTimeout(() => {
+      let timeout = setTimeout(() => {
         circle.style.opacity = 1;
       }, delay);
 
+      timeouts.push(timeout);
+
       if (index < 200) {
-        delay = Math.max(minDelay, delay - step);
+        delay = Math.max(100, delay - step);
       } else {
-        delay = Math.min(maxDelay, delay + step);
+        delay = Math.min(1000, delay + step);
       }
     });
   }
@@ -69,8 +74,8 @@
 
   // Speed control
   document.getElementById('speedControl').addEventListener('input', function() {
-    startAnimation(this.value);
     createCircles(); // Recreate circles to restart the animation
+    startAnimation(this.value);
   });
 </script>
 
