@@ -4,22 +4,36 @@
 <meta charset="UTF-8">
 <title>Kreise im Raster mit Regler</title>
 <style>
+  /* Zentriert den Inhalt des Body-Tags komplett */
+  body {
+    display: flex;
+    justify-content: center; /* Zentriert horizontal */
+    align-items: center; /* Zentriert vertikal */
+    min-height: 100vh; /* Mindesthöhe auf Fensterhöhe setzen */
+    margin: 0; /* Entfernt den Standard-Margin */
+  }
+  /* Stil für den Container, der das Raster hält */
   .grid-container {
     display: grid;
     grid-template-columns: repeat(20, 30px);
     grid-template-rows: repeat(20, 30px);
     gap: 0;
   }
+  /* Stil für die Kreise */
   .circle {
     width: 30px;
     height: 30px;
     background-color: gray;
     border-radius: 50%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
   }
-  #speedControl {
-    margin: 20px 0;
+  /* Stil für den Geschwindigkeitsregler */
+  #speedControlWrapper {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
 </head>
