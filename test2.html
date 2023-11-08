@@ -50,11 +50,12 @@
       container.appendChild(circle);
 
       // Corrected setTimeout call
-setTimeout(() => {
-  circle.style.opacity = 1;
-  circle.style.transform = 'scale(1)';
-  circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
-}, delay);
+      setTimeout(() => {
+        circle.style.opacity = 1;
+        circle.style.transform = 'scale(1)';
+        // circle.style.transition = `transform ${delay}s, opacity ${delay}s`;
+        circle.style.transition = `transform 1s, opacity 1s`;
+      }, delay);
 
       delay *= delayDecreaseFactor; // Exponentielle Abnahme der Verzögerung
     }
