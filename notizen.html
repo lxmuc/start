@@ -28,6 +28,7 @@
     justify-content: flex-start;
     padding-left: 80px; /* Align with the textarea */
     margin-top: 30px;
+    align-content: space-around;
   }
   button {
     margin-right: 10px; /* Spacing between buttons */
@@ -43,6 +44,7 @@
     font-size: 15px;
     resize: none;
     border: none; /* No border */
+    padding: 3 px;
     outline: none; /* No focus outline */
     margin: 30px 80px 0 80px; /* Margin as specified */
     flex-grow: 1;
@@ -58,7 +60,7 @@
   <button onclick="copyText()">Copy</button>
   <button onclick="pasteText()">Paste</button>
   <button onclick="clearText()">Löschen</button>
-  <button onclick="insertBullets()">Bullet</button>
+  <button onclick="insertBullets()">Bulletpoints</button>
 </div>
   
   <textarea id="textArea" placeholder="Start typing..."></textarea>
