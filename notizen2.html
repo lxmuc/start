@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notizen 2</title>
+<title>Notizen 1</title>
 <link rel="apple-touch-icon" href="IMG_7935.png">
 <style>
 
+  
   html, body {
     height: 100%;
     margin: 0;
@@ -25,14 +26,20 @@
   }
   #buttonContainer {
     display: flex;
-    justify-content: flex-start;
-    padding-left: 80px; /* Align with the textarea */
     margin-top: 30px;
+    justify-content: space-between; /* This will distribute buttons evenly */
+    margin: 30px 80px 0 80px; /* Match the margin of the textarea */
   }
+  
   button {
-    margin-right: 10px; /* Spacing between buttons */
     font-size: 15px;
+    border: none;
+    min-height: 30px;
+    min-width: 150px;
+    border-radius: 5px;
+    color: grey;
   }
+  
   textarea {
     font-family: Arial, sans-serif;
     font-size: 15px;
@@ -43,6 +50,7 @@
     flex-grow: 1;
     min-height: 400px; /* Minimum height */
   }
+
 </style>
 </head>
 <body>
@@ -53,9 +61,10 @@
   <button onclick="copyText()">Copy</button>
   <button onclick="pasteText()">Paste</button>
   <button onclick="clearText()">Löschen</button>
+  <button onclick="insertBullets()">Bulletpoints</button>
 </div>
-
-<textarea id="textArea" placeholder="Start typing..."></textarea>
+  
+  <textarea id="textArea" placeholder="Start typing..."></textarea>
 
 <script>
   function saveContent() {
@@ -98,19 +107,50 @@
     }
   }
 
- function replaceXXX() {
+  function replaceXXX() {
     var textArea = document.getElementById('textArea');
     var currentValue = textArea.value;
-    var newValue = currentValue.replace(/xxx/gi, "______________________________________________________________________________");
+    var newValue = currentValue.replace(/xxx/gi, " ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞");
     if (currentValue !== newValue) {
       textArea.value = newValue;
     }
   }
 
+function insertBullets() {
+  var bulletCount = prompt("Wie viele Bulletpoints?", "1"); // Prompt the user to input the number of bullets
+  
+  if (bulletCount !== null && bulletCount !== '') { // Check if the user entered a value
+    bulletCount = parseInt(bulletCount, 10); // Convert the input to an integer
+
+    if (isNaN(bulletCount) || bulletCount < 1) {
+      alert("Please enter a valid number.");
+      return;
+    }
+
+    var textArea = document.getElementById('textArea');
+    var cursorPosition = textArea.selectionStart; // Get the cursor position
+    var textBefore = textArea.value.substring(0, cursorPosition);
+    var textAfter = textArea.value.substring(cursorPosition);
+    var bullets = "";
+
+    // Create a string with the specified number of bullet points
+    for (var i = 0; i < bulletCount; i++) {
+      bullets += "• \n"; // Add a bullet point and a space
+    }
+
+    // Insert the bullet points into the text
+    textArea.value = textBefore + bullets + textAfter;
+
+    // Move the cursor after the inserted bullet points
+    textArea.selectionStart = textArea.selectionEnd = cursorPosition + bullets.length;
+    textArea.focus(); // Bring focus back to the textarea
+  }
+}
+  
   document.getElementById('textArea').addEventListener('input', function() {
     saveContent();
-    updateHeader();
     replaceXXX();
+    updateHeader();
   });
 
   window.onload = function() {
