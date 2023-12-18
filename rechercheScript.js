@@ -615,6 +615,32 @@ fundstellenFenster.addEventListener("paste", (e) => {
   }
 });
 
+function pasteFromClipboard() {
+  // Verwenden der Clipboard API, um Text aus der Zwischenablage zu lesen
+  navigator.clipboard.readText().then(clipboardText => {
+    // Stellen Sie sicher, dass clipboardText nicht leer ist
+    if (!clipboardText) return;
+
+    // Weitere Überprüfungen können hier hinzugefügt werden
+    const newDiv = document.createElement("div");
+    newDiv.className = "fundstelleWrap";
+    newDiv.innerHTML = neueFundstelleWrapHTML;
+
+    // Fügt den neuen Container am Anfang von 'fundstellenFenster' ein
+    fundstellenFenster.prepend(newDiv);
+
+    // Einfügen des Textes aus der Zwischenablage in den neuen Container
+    const fundstelleInhaltDiv = newDiv.querySelector('.fundstelleInhalt');
+    if (fundstelleInhaltDiv) {
+      fundstelleInhaltDiv.innerText = clipboardText;
+    }
+
+    // Speichern im Browser
+    saveToBrowser();
+  }).catch(err => {
+    console.error('Fehler beim Lesen der Zwischenablage: ', err);
+  });
+}
 
 
 
@@ -654,7 +680,14 @@ function closeAndSafeEditor() {
   overlay.style.display = 'none';
 }
 
+function closeWithoutSafeEditor() {  
+  var overlay = document.getElementById('overlayEditWindow');
+  overlay.style.display = 'none';
+  if (confirm('Ohne Speichern schließen?')) {
+    overlay.style.display = 'none';
+  }
 
+}
 
 async function checkWithGPT() {
   // 1. Führe die addEmptyFundstelleWrap Funktion aus

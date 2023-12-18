@@ -8,9 +8,8 @@ body {
 
 .window {
   display: grid;
-  grid-template-columns: 30px minmax(400px, 700px);
+  grid-template-columns: 30px minmax(400px, 800px);
   grid-template-rows: minmax(30px, auto) minmax(700px, auto);
-
 }
 
 
@@ -29,7 +28,7 @@ body {
 /* ECKE */
 #obenLinks {
   display: flex;
-  justify-content: center;
+  justify-content: left;
 
   border-top-left-radius: 10px;
   color: white;
@@ -118,7 +117,7 @@ body {
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   min-height: 17px;
-  max-height: 20px;
+  max-height: 25px;
   padding: 2px;
   justify-content: flex-start;
   align-items: center;
@@ -130,7 +129,7 @@ body {
 .fundstelleQuelleText {
   user-select: none;
   display: flex;
-  min-height: 17px;
+  min-height: 20px;
   max-height: 25px;
   width: 85%;
   padding: 2px;
@@ -146,13 +145,13 @@ body {
 
 .fundstelleIcons {
   user-select: none;
-  width: 140px;
+  width: 190px;
   margin: 3px;
   position: absolute;
   top: 0;
   right: 0;
   color: rgb(131, 131, 131);
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .fundstelleInhalt {
@@ -200,6 +199,9 @@ overflow-y: hidden;
 #titleOfResearch {
   margin: 5px;
   margin-left: 35px;
+  margin-bottom: 15px;
+  padding: 4px;
+
   font-size: 18px;
   font-weight: bold;
   color: grey;
@@ -210,7 +212,7 @@ overflow-y: hidden;
 }
 
 .fundstelleIcons i.fa-solid {
-  margin-right: 5px; 
+  margin-right: 10px; 
 
 }
 
@@ -221,10 +223,11 @@ overflow-y: hidden;
 .fa-solid.fa-pen,
 .fa-regular.fa-trash-can {
   opacity: 0.1;
+  font-size: 20px;
 }
 
 .fa-regular.fa-trash-can {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .fundstelleIcons {
@@ -257,11 +260,11 @@ overflow-y: hidden;
 .fa-solid.fa-print,
 .fa-solid.fa-ellipsis-vertical,
 .fa-solid.fa-eraser,
-.fa-solid.fa-robot,
 .fa-solid.fa-maximize,
+.fa-solid.fa-paste,
 .fa-solid.fa-square-plus {
-  font-size: large;
-  color: grey;
+  font-size: 20px;
+  color: rgb(110, 110, 110);
   margin: 7px;
   margin-left: 20px;
   opacity: 0.2;
@@ -270,8 +273,15 @@ overflow-y: hidden;
 .fa-solid.fa-square-plus {
   margin: 0px;
   margin-top: 10px;
-  font-size: 23px;
+  font-size: 25px;
 }
+
+.fa-solid.fa-paste {
+  margin: 0px;
+  margin-top: 30px;
+  font-size: 25px;
+}
+
 
 .fa-solid.fa-solid.fa-eraser {
   margin-right: 27px;
@@ -286,8 +296,8 @@ overflow-y: hidden;
 .fa-solid.fa-ellipsis-vertical:hover,
 .fa-solid.fa-minimize:hover,
 .fa-solid.fa-maximize:hover,
-.fa-solid.fa-robot:hover,
 .fa-solid.fa-eraser:hover,
+.fa-solid.fa-paste:hover,
 .fa-solid.fa-square-plus:hover{
   opacity: 0.8;
   transform: scale(1.2);
@@ -386,8 +396,8 @@ box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
 /* ICON PLAY ZUM AUSFAHREN */
 .fa-solid.fa-play {
   color: rgb(233, 233, 233);
-  font-size: 25px;
-  transform: scaleX(1) translate(-10px, 34px);
+  font-size: 30px;
+  transform: scaleX(1) translate(-10px, 50px);
   transition: transform 0.5s ease;
 }
 
@@ -399,6 +409,7 @@ box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
 /* INDEX  */
 
 .sectionRight {
+  margin-top: 7px;
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -416,6 +427,7 @@ box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 input {
+  display:none;
   border: none;
   height: 25px;
   width: 87%; /* Adjusted width */
@@ -448,7 +460,7 @@ input::placeholder {
 
 .buttonsIndexmenu {
   background-color: rgb(247, 247, 247);
-  font-size: 12px;
+  font-size: 14px;
   border: none;
   margin: 2px;
   padding: 3px;
@@ -475,7 +487,7 @@ input::placeholder {
   width: 100%; /* Adjusted width */
   margin-bottom: 4px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 13px;
   overflow: hidden;
 }
 
