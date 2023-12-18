@@ -5,70 +5,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recherche</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="./png/Rr.png">
 </head>
 
 <body>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <div id="titleOfResearch" onclick="changeTitle()">title</div>
-  <div class="window">
-    <div class="container">
-      <div class="item" id="container1"></div>
-    </div>
-    <div class="container">
-      <div class="item" id="container2">
-        <input type="file" id="fileInput" style="display: none;" onchange="loadFromFile()">
-        <i class="fa-solid fa-folder-open" onclick="document.getElementById('fileInput').click()"></i>
-        <i class="fa-solid fa-download" onclick="saveToFile()"></i>
-        <i class="fa-solid fa-minimize" onclick="collapseAll()"></i>
-        <i class="fa-solid fa-maximize" onclick="expandAll()"></i>
-        <i class="fa-solid fa-text-height" onclick="toggleFontSize()"></i>
-        <i class="fa-solid fa-print" onclick="druckversion()"></i>
-      </div>
-    </div>
-    <div class="container">
-      <div class="item" id="container3">
-        <i class="fa-solid fa-plus" onclick="addEmptyFundstelleWrap()"></i>
-      </div>
+  <link rel="stylesheet" href="./rechercheStyle.css">
 
-    </div>
-    <div class="container">
-      <div class="item" id="container4">
-        <div class="fundstelleWrap">
-          <div class="fundstelleQuelle">
-            <div class="fundstelleQuelleText">Quelle1</div>
-            <div class="fundstelleIcons">
-              <i class="fa-solid fa-section"></i>
-              <i class="fa-solid fa-arrow-down-short-wide"></i>
-              <i class="fa-solid fa-hand" draggable="true" ></i>
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-          </div>
-          <div class="fundstelleInhalt">Inhalt2</div>
-        </div>
-        <div class="fundstelleWrap">
-          <div class="fundstelleQuelle">
-            <div class="fundstelleQuelleText">Quelle2</div>
-            <div class="fundstelleIcons">
-              <i class="fa-solid fa-section"></i>
-              <i class="fa-solid fa-arrow-down-short-wide" ></i>
-              <i class="fa-solid fa-hand" draggable="true" ></i>
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-          </div>
-          <div class="fundstelleInhalt">Inhalt2</div>
+  <div class="sectionLeft">
+    <div id="titleOfResearch" onclick="changeTitle()">title</div>
+    <div class="window">
+
+      <div class="container">
+        <div class="item" id="obenLinks"></div>
+      </div>
+      <div class="container">
+        <div class="item" id="menüLeiste">
+          <input type="file" id="fileInput" style="display: none;" onchange="loadFromFile()">
+          <i class="fa-solid fa-folder-open" onclick="document.getElementById('fileInput').click()"></i>
+          <i class="fa-solid fa-download" onclick="saveToFile()"></i>
+          <i class="fa-solid fa-minimize" onclick="toggleMinimize()"></i>
+          <i class="fa-solid fa-text-height" onclick="toggleFontSize()"></i>
+          <i class="fa-solid fa-robot" onclick="checkWithGPT()"></i>
+          <i class="fa-solid fa-print" onclick="druckversion()"></i>
+          <i class="fa-solid fa-ellipsis-vertical" onclick="druckversion2()"></i>
+          <i class="fa-solid fa-eraser" onclick="eraseAll()"></i>
         </div>
       </div>
+      <div class="container">
+        <div class="item" id="container3">
+          <i class="fa-solid fa-square-plus" onclick="addEmptyFundstelleWrap()"></i>
+        </div>
+      </div>
+      <div class="container">
+        <div class="item" id="fundstellenFenster">
+        </div>
 
+      </div>
     </div>
   </div>
-  <div id="confirmationPopup" class="popup">
-    <p>Löschen?</p>
-    <button id="confirmButton"><i class="fa-solid fa-check"></i></button>
-    <button id="cancelButton"><i class="fa-solid fa-circle-xmark"></i></button>
+
+  <div class="sectionRight">
+    <input type="text" placeholder="...im Titel suchen"></input>
+
+    <div class="buttonsIndexmenuWrap">
+      <button class="buttonsIndexmenu" onclick="DBspeichern()">Speichern</button>
+      <button class="buttonsIndexmenu" onclick="DBchangeTitel()">Titel Ändern</button>
+      <button class="buttonsIndexmenu" onclick="auflistenNachDatum()">Auflisten n. Datum</button>
+      <button class="buttonsIndexmenu" onclick="DBdelete()">Löschen</button>
+
+    </div>
+    <div class="suchergebnisse">
+      <div class="suchergebnisse">
+        <!-- <button class="searchResultTitle">Gurkis</button>
+        <button class="searchResultTitle">Tiere</button> -->
+      </div>
+
+
+    </div>
+    <button class="buttonsIndexmenu" onclick="DBBackup()">Backup</button>
+    <button class="buttonsIndexmenu" onclick="DBImport()">ImportBackup</button>
+    
   </div>
-  <script src="./script.js"></script>
+    <i class="fa-solid fa-play"></i>
+
+
+    <div id="overlayEditWindow">
+      <div id="overlayMenu">
+
+        <button class="buttonsTextarea" onclick="Zeilenumbrueche()">Bereinigen</button>
+        <button class="buttonsTextarea" onclick="entferneNewlines()">Absätze entfernen</button>
+        <button class="buttonsTextarea" onclick="SaetzeTrennen()">Nach Sätzen trennen</button>
+        <div class="vertical-line"></div>
+        <button class="buttonsTextarea" onclick="closeAndSafeEditor()">Speichern</button>
+
+
+      </div>
+      <textarea id="editTextArea" spellcheck="false"></textarea>
+    </div>
+
+    <script src="./rechercheScript.js"></script>
+    <script src="./rechercheScriptDB.js"></script>
 </body>
 
 </html>
+
+<!--
+<div class="fundstelleWrap">
+<div class="fundstelleQuelle">
+  <div class="fundstelleQuelleText"></div>
+  <div class="fundstelleIcons">
+    <i class="fa-solid fa-palette"></i>
+    <i class="fa-regular fa-trash-can"></i>
+    <i class="fa-solid fa-arrow-down-short-wide"></i>
+    <i class="fa-solid fa-hand" draggable="true"></i>
+    <i class="fa-solid fa-xmark"></i>
+  </div>
+</div>
+<div class="fundstelleInhalt"></div>
+</div> -->
