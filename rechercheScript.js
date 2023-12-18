@@ -165,7 +165,7 @@ document.addEventListener('dblclick', function (event) {
 });
 
 
-// REIHENFOLGE DER FUNDSTELLEN 
+/* REIHENFOLGE DER FUNDSTELLEN 
 container.addEventListener('mousedown', function (event) {
   if (event.target.classList.contains('fa-hand')) {
     isVerschiebenAktiv = true;
@@ -213,7 +213,58 @@ container.addEventListener('mousedown', function (event) {
 
     }
   }
+}); */
+
+// FUNDSTELLE REIHENFOLGE ÄNDERN IPAD
+container.addEventListener('touchstart', function (event) {
+  if (event.target.classList.contains('fa-hand')) {
+    isVerschiebenAktiv = true;
+    let draggedItem = event.target.closest('.fundstelleWrap');
+
+    let debounceTimer; // For debouncing touchmove events
+    let lastTouchMoveIndex = null; // To track the last index of touch move item
+
+    container.addEventListener('touchmove', touchMove);
+    container.addEventListener('touchend', touchEnd);
+
+    function touchMove(e) {
+      e.preventDefault();
+
+      clearTimeout(debounceTimer);       // Debounce implementation
+      debounceTimer = setTimeout(() => {
+        let touchingOverItem = e.target.closest('.fundstelleWrap');
+        if (touchingOverItem && draggedItem !== touchingOverItem) {
+          // Determine position and move draggedItem
+          const touchingOverIndex = Array.from(container.children).indexOf(touchingOverItem);
+          const draggedItemIndex = Array.from(container.children).indexOf(draggedItem);
+
+          // Additional logging for debugging
+          if (touchingOverIndex < draggedItemIndex) {
+            if (lastTouchMoveIndex !== touchingOverIndex) {
+              container.insertBefore(draggedItem, touchingOverItem);
+              lastTouchMoveIndex = touchingOverIndex; // Update last index
+            }
+          } else {
+            if (lastTouchMoveIndex !== touchingOverIndex) {
+              container.insertBefore(draggedItem, touchingOverItem.nextSibling);
+              lastTouchMoveIndex = touchingOverIndex; // Update last index
+            }
+          }
+        }
+      }, 10); // 50 milliseconds debounce time
+    }
+
+    function touchEnd(e) {
+      e.preventDefault();
+      container.removeEventListener('touchmove', touchMove);
+      container.removeEventListener('touchend', touchEnd);
+      isVerschiebenAktiv = false; // Reset flag after touchend
+      clearTimeout(debounceTimer); // Clear debounce timer
+    }
+  }
 });
+
+
 
 // (INHALT) DRAG to QUELLE
 container.addEventListener("dragover", (e) => {
@@ -927,6 +978,7 @@ function Zeilenumbrueche() {
     .replace(/\t/g, ' ')  // TABULATOREN durch ein Leerzeichen
     .replace(/  +/g, ' ')  // X-Leerzeichen > 1 Leerzeichen
     .replace(/\.(?=[A-Z])/g, '. ')
+    .replace(/(\d+\.)\s+([A-Za-z])/g, "$1 $2")
     // Möglicherweise inhaltlich:
     .replace(/(\d)([a-zA-Z])/g, '$2')  // Entfernt Ziffern vor Buchstaben
     .replace(/(\d)([§])/g, '$2') // Entfernt Ziffern vor "§"
