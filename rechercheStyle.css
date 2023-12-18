@@ -354,7 +354,7 @@ font-size: 18px;
 }
 
 #overlayMenu {
-  width: 85%;
+  width: 95%;
   height: 40px;
   background-color: darkgrey;
   border-radius: 4px;
@@ -369,7 +369,7 @@ font-size: 18px;
 }
 
 #editTextArea {
-  width: 85%;
+  width: 95%;
   height: 90%;
   display: block;
   padding: 7px;
