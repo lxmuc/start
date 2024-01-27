@@ -1,0 +1,331 @@
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>iPadNotes A</title>
+    <link rel="apple-touch-icon" href="IMG_7935.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #5f6661;
+            font-size: 20px;
+        }
+
+        #headerText {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: darkgrey;
+            margin: 10px 80px 0 80px;
+            /* Align with the textarea */
+            text-align: center;
+        }
+
+        #buttonContainer {
+            margin: 20px 50px 0px 50px;
+
+            justify-content: space-between;
+        }
+
+        button {
+            font-size: 15px;
+            width: 60px;
+            height: 60px;
+            border: none;
+
+            min-height: 30px;
+            border-radius: 5px;
+            color: grey;
+            box-shadow: 2px 2px 7px 3px rgba(0, 0, 0, 0.1);
+
+        }
+
+        textarea {
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 17px;
+            resize: none;
+            border: none;
+            /* No border */
+            outline: none;
+            padding: 10px;
+            /* No focus outline */
+            margin: 20px 50px 0px 50px;
+            /* Margin as specified */
+            flex-grow: 1;
+            min-height: 400px;
+            box-shadow: inset 2px 2px 7px 3px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .fa-solid {
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="headerText" contenteditable="true">...</div>
+
+    <div id="buttonContainer">
+        <button onclick="pasteText()"><i class="fa-solid fa-paste"></i></button>
+        <button onclick="copyText()"><i class="fa-solid fa-clipboard"></i></button>
+        <button onclick="clearText()"><i class="fa-solid fa-trash"></i></button>
+        <button onclick="insertBullet()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        <button onclick="insertBreakline()"><i class="fa-solid fa-grip-lines"></i> </button>
+        <button onclick="abschnittHoch()"><i class="fa-solid fa-circle-arrow-up"></i></button>
+        <button onclick="abschnittRunter()"><i class="fa-solid fa-circle-arrow-down"></i></button>
+        <button onclick="abschnittDelete()"><i class="fa-solid fa-circle-minus"></i></button>
+        <button onclick="headlineInput()"><i class="fa-solid fa-heading"></i></button>
+        <button onclick="emailWithClipboardContents()"><i class="fa-solid fa-envelope"></i></button>
+        <button onclick="highlightText()"><i class="fa-solid fa-highlighter"></i></button>
+    </div>
+
+    <textarea id="textArea" placeholder="Start typing..."></textarea>
+
+    <script>
+
+        const textArea = document.getElementById('textArea');
+        const headerText = document.getElementById('headerText');
+        const breakline = "\n" + "▔".repeat(42); // Line made of ▔ repeated X times
+      
+        function saveContent() {
+            try {
+                localStorage.setItem(' textData2', document.getElementById('textArea').value);
+            } catch (e) {
+                console.error("Could not save to localStorage. Details: ", e);
+            }
+        }
+
+        function saveHeaderText() {
+            try {
+                localStorage.setItem('header textData2', headerText.innerHTML);
+            } catch (e) {
+                console.error("Could not save header text to localStorage. Details: ", e);
+            }
+        }
+
+
+
+        function copyText() {
+            navigator.clipboard.writeText(document.getElementById('textArea').value)
+                .then(() => alert('Text copied to clipboard'))
+                .catch(err => console.error('Failed to copy text: ', err));
+        }
+
+        function pasteText() {
+            navigator.clipboard.readText()
+                .then(text => {
+                    const currentContent = document.getElementById('textArea').value;
+                    document.getElementById('textArea').value = currentContent + breakline + "\n" + text + "\n";
+                    saveContent();
+                })
+                .catch(err => console.error('Failed to paste text: ', err));
+        }
+
+        function clearText() {
+            if (window.confirm("Alter Text wird gelöscht. Sicher?")) {
+                document.getElementById('textArea').value = '';
+                saveContent();
+                updateHeader();
+            }
+        }
+        /// inserts a line made of ▔ into the textarea at the current position of the cursor
+
+        function insertBreakline() {
+            var cursorPosition = textArea.selectionStart; // Get the cursor position
+            var textBefore = textArea.value.substring(0, cursorPosition);
+            var textAfter = textArea.value.substring(cursorPosition);
+
+
+            // Insert the breakline into the text
+            textArea.value = textBefore + breakline + textAfter;
+
+            // Move the cursor after the inserted breakline
+            textArea.selectionStart = textArea.selectionEnd = cursorPosition + breakline.length;
+            textArea.focus(); // Bring focus back to the textarea
+            saveContent();
+        }
+
+
+        function highlightText() {
+            // Start- und Endposition der Auswahl ermitteln
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+
+            // Den ausgewählten Text ermitteln
+            const selectedText = textArea.value.substring(start, end);
+
+            // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
+            const highlightedText = "\n█" + selectedText.toUpperCase() + "\n";
+
+            // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
+            textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
+
+            // Die Markierung deaktivieren, indem der Cursor ans Ende des eingefügten Textes gesetzt wird
+            const newCursorPos = start + highlightedText.length;
+            textArea.selectionStart = newCursorPos;
+            textArea.selectionEnd = newCursorPos;
+
+            // Den Fokus auf die Textarea setzen
+            textArea.focus();
+            saveContent();
+        }
+
+
+        function insertBullet() {
+            var cursorPosition = textArea.selectionStart; // Get the cursor position
+            var textBefore = textArea.value.substring(0, cursorPosition);
+            var textAfter = textArea.value.substring(cursorPosition);
+            var bullet = "\n• "; // Single bullet point and a space
+
+            // Insert the bullet point into the text
+            textArea.value = textBefore + bullet + textAfter;
+
+            // Move the cursor after the inserted bullet point
+            textArea.selectionStart = textArea.selectionEnd = cursorPosition + bullet.length;
+            textArea.focus(); // Bring focus back to the textarea
+            saveContent();
+        }
+
+
+        function abschnittHoch() {
+            const text = textArea.value;
+            let cursorPos = textArea.selectionStart;
+            let start = text.lastIndexOf('\n▔', cursorPos);
+            let end = text.indexOf('\n▔', cursorPos);
+
+            if (end === -1) end = text.length;
+            if (start === -1) start = 0;
+            else start += 1; // Adjusting start position to be one character earlier
+
+            // Select the text between the two lines
+            textArea.setSelectionRange(start, end);
+
+            // Extract the selected text
+            const selectedText = textArea.value.substring(start, end);
+
+            // Remove the selected text from its current position
+            let before = text.substring(0, start);
+            let after = text.substring(end);
+            textArea.value = before + after;
+
+            // Prepend the selected text to the beginning of the textarea content
+            textArea.value = selectedText + '\n' + textArea.value;
+
+            // Update any necessary states after text manipulation
+            saveContent();
+        }
+
+        function abschnittRunter() {
+            const text = textArea.value;
+            let cursorPos = textArea.selectionStart;
+            let start = text.lastIndexOf('\n▔', cursorPos);
+            let end = text.indexOf('\n▔', cursorPos);
+
+            if (end === -1) end = text.length;
+            if (start === -1) start = 0;
+            else start += 1; // Adjusting start position to be one character earlier
+
+            // Extract the selected text
+            const selectedText = textArea.value.substring(start, end);
+
+            // Remove the selected text from its current position
+            let before = text.substring(0, start);
+            let after = text.substring(end);
+            textArea.value = before + after;
+
+            // Append the selected text to the end of the textarea content
+            textArea.value = textArea.value.trim() + '\n' + selectedText;
+
+            // Update any necessary states after text manipulation
+            saveContent();
+        }
+
+
+        function headlineInput() {
+            const text = textArea.value;
+            let cursorPos = textArea.selectionStart;
+
+            // Suche rückwärts nach der letzten Abfolge von ▔-Zeichen
+            let lastLinePos = text.lastIndexOf('▔', cursorPos);
+
+            // Falls keine ▔-Zeichen gefunden wurden, setze den Cursor an den Anfang
+            if (lastLinePos === -1) {
+                textArea.setSelectionRange(0, 0);
+            } else {
+                // Suche den Anfang der Abfolge von ▔-Zeichen
+                while (lastLinePos > 0 && text[lastLinePos - 1] === '▔') {
+                    lastLinePos--;
+                }
+
+                // Setze den Cursor an diese Stelle
+                textArea.setSelectionRange(lastLinePos, lastLinePos);
+            }
+
+
+        }
+
+        function emailWithClipboardContents() {
+            // Copy its contents to the clipboard
+            textArea.select();
+            document.execCommand('copy');
+
+            // Create the mailto link with the specified recipient and subject
+            var recipient = "alex.worobjow@gmail.com";
+            var subject = encodeURIComponent("iPad Notizen") + " " + headerText.innerHTML;
+            var mailtoLink = "mailto:" + recipient + "?subject=" + subject;
+
+            // Open the default email client with the mailto link
+            window.location.href = mailtoLink;
+        }
+
+
+        // Modify existing event listener for textArea
+        document.getElementById('textArea').addEventListener('input', function () {
+            saveContent();
+            saveHeaderText();
+            updateHeader();
+        });
+
+
+        headerText.addEventListener('input', function () {
+            saveHeaderText();
+        });
+
+
+        // Modify the window.onload function
+        window.onload = function () {
+            try {
+                var savedContent = localStorage.getItem(' textData2');
+                var savedHeaderText = localStorage.getItem('header textData2');
+                if (savedContent) {
+                    textArea.value = savedContent;
+                }
+                if (savedHeaderText) {
+                    headerText.innerHTML = savedHeaderText;
+                }
+                updateHeader(); // Assuming this function exists already
+            } catch (e) {
+                console.error("Could not load from localStorage. Details: ", e);
+            }
+        };
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
