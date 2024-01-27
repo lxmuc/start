@@ -106,12 +106,12 @@
         }
 
         function saveHeaderText() {
-        try {
-            localStorage.setItem('headerTextData', headerText.innerHTML);
-        } catch (e) {
-            console.error("Could not save header text to localStorage. Details: ", e);
+            try {
+                localStorage.setItem('headerTextData', headerText.innerHTML);
+            } catch (e) {
+                console.error("Could not save header text to localStorage. Details: ", e);
+            }
         }
-    }
 
 
 
@@ -152,31 +152,33 @@
             // Move the cursor after the inserted breakline
             textArea.selectionStart = textArea.selectionEnd = cursorPosition + breakline.length;
             textArea.focus(); // Bring focus back to the textarea
+            saveContent();
         }
 
 
         function highlightText() {
-    // Start- und Endposition der Auswahl ermitteln
-    const start = textArea.selectionStart;
-    const end = textArea.selectionEnd;
+            // Start- und Endposition der Auswahl ermitteln
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
 
-    // Den ausgewählten Text ermitteln
-    const selectedText = textArea.value.substring(start, end);
+            // Den ausgewählten Text ermitteln
+            const selectedText = textArea.value.substring(start, end);
 
-    // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
-    const highlightedText = "\n█" + selectedText.toUpperCase() + "\n";
+            // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
+            const highlightedText = "\n█" + selectedText.toUpperCase() + "\n";
 
-    // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
-    textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
+            // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
+            textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
 
-    // Die Markierung deaktivieren, indem der Cursor ans Ende des eingefügten Textes gesetzt wird
-    const newCursorPos = start + highlightedText.length;
-    textArea.selectionStart = newCursorPos;
-    textArea.selectionEnd = newCursorPos;
+            // Die Markierung deaktivieren, indem der Cursor ans Ende des eingefügten Textes gesetzt wird
+            const newCursorPos = start + highlightedText.length;
+            textArea.selectionStart = newCursorPos;
+            textArea.selectionEnd = newCursorPos;
 
-    // Den Fokus auf die Textarea setzen
-    textArea.focus();
-}
+            // Den Fokus auf die Textarea setzen
+            textArea.focus();
+            saveContent();
+        }
 
 
         function insertBullet() {
@@ -191,6 +193,7 @@
             // Move the cursor after the inserted bullet point
             textArea.selectionStart = textArea.selectionEnd = cursorPosition + bullet.length;
             textArea.focus(); // Bring focus back to the textarea
+            saveContent();
         }
 
 
@@ -278,7 +281,7 @@
 
             // Create the mailto link with the specified recipient and subject
             var recipient = "alex.worobjow@gmail.com";
-            var subject = encodeURIComponent("iPad Notizen");
+            var subject = encodeURIComponent("iPad Notizen") + " " + headerText.innerHTML;
             var mailtoLink = "mailto:" + recipient + "?subject=" + subject;
 
             // Open the default email client with the mailto link
@@ -295,26 +298,26 @@
 
 
         headerText.addEventListener('input', function () {
-    saveHeaderText();
-});
+            saveHeaderText();
+        });
 
 
-    // Modify the window.onload function
-    window.onload = function () {
-        try {
-            var savedContent = localStorage.getItem('textData');
-            var savedHeaderText = localStorage.getItem('headerTextData');
-            if (savedContent) {
-                textArea.value = savedContent;
+        // Modify the window.onload function
+        window.onload = function () {
+            try {
+                var savedContent = localStorage.getItem('textData');
+                var savedHeaderText = localStorage.getItem('headerTextData');
+                if (savedContent) {
+                    textArea.value = savedContent;
+                }
+                if (savedHeaderText) {
+                    headerText.innerHTML = savedHeaderText;
+                }
+                updateHeader(); // Assuming this function exists already
+            } catch (e) {
+                console.error("Could not load from localStorage. Details: ", e);
             }
-            if (savedHeaderText) {
-                headerText.innerHTML = savedHeaderText;
-            }
-            updateHeader(); // Assuming this function exists already
-        } catch (e) {
-            console.error("Could not load from localStorage. Details: ", e);
-        }
-    };
+        };
 
 
 
