@@ -37,9 +37,10 @@
 
         button {
             font-size: 15px;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border: none;
+
             min-height: 30px;
             border-radius: 5px;
             color: grey;
@@ -66,7 +67,7 @@
         }
 
         .fa-solid {
-            font-size: 20px;
+            font-size: 25px;
         }
     </style>
 </head>
@@ -85,8 +86,8 @@
         <button onclick="abschnittRunter()"><i class="fa-solid fa-circle-arrow-down"></i></button>
         <button onclick="abschnittDelete()"><i class="fa-solid fa-circle-minus"></i></button>
         <button onclick="headlineInput()"><i class="fa-solid fa-heading"></i></button>
-        <button onclick="emailWithClipboardContents()"><i class="fa-regular fa-envelope"></i></button>
-
+        <button onclick="emailWithClipboardContents()"><i class="fa-solid fa-envelope"></i></button>
+        <button onclick="highlightText()"><i class="fa-solid fa-highlighter"></i></button>
     </div>
 
     <textarea id="textArea" placeholder="Start typing..."></textarea>
@@ -140,6 +141,31 @@
             textArea.selectionStart = textArea.selectionEnd = cursorPosition + breakline.length;
             textArea.focus(); // Bring focus back to the textarea
         }
+
+
+        function highlightText() {
+    // Start- und Endposition der Auswahl ermitteln
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+
+    // Den ausgewählten Text ermitteln
+    const selectedText = textArea.value.substring(start, end);
+
+    // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
+    const highlightedText = "█→" + selectedText.toUpperCase() + "←█";
+
+    // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
+    textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
+
+    // Die Markierung deaktivieren, indem der Cursor ans Ende des eingefügten Textes gesetzt wird
+    const newCursorPos = start + highlightedText.length;
+    textArea.selectionStart = newCursorPos;
+    textArea.selectionEnd = newCursorPos;
+
+    // Den Fokus auf die Textarea setzen
+    textArea.focus();
+}
+
 
         function insertBullet() {
             var cursorPosition = textArea.selectionStart; // Get the cursor position
