@@ -81,15 +81,14 @@
         <button onclick="clearText()"><i class="fa-solid fa-file"></i> <i class="fa-solid fa-trash"></i></button>
         <button onclick="insertBullet()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
         <button onclick="insertBreakline()"><i class="fa-solid fa-grip-lines"></i> </button>
-        <button onclick="abschnittHoch()"><i class="fa-solid fa-align-justify"></i> <i
-                class="fa-solid fa-circle-arrow-up"></i></button>
-        <button onclick="abschnittRunter()"><i class="fa-solid fa-align-justify"></i> <i
-                class="fa-solid fa-circle-arrow-down"></i></button>
-        <button onclick="abschnittDelete()"><i class="fa-solid fa-align-justify"></i> <i
-                class="fa-solid fa-circle-minus"></i></button>
+        <button onclick="abschnittHoch()"><i class="fa-solid fa-circle-arrow-up"></i></button>
+        <button onclick="abschnittRunter()"><i class="fa-solid fa-circle-arrow-down"></i></button>
+        <button onclick="abschnittDelete()"><i class="fa-solid fa-circle-minus"></i></button>
         <button onclick="headlineInput()"><i class="fa-solid fa-heading"></i></button>
         <button onclick="emailWithClipboardContents()"><i class="fa-regular fa-envelope"></i></button>
- 
+        
+        <button onclick="highlightText()"><i class="fa-solid fa-highlighter"></i></button>
+
     </div>
 
     <textarea id="textArea" placeholder="Start typing..."></textarea>
@@ -144,6 +143,28 @@
             textArea.focus(); // Bring focus back to the textarea
         }
 
+        function highlightText() {
+    // Start- und Endposition der Auswahl ermitteln
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+
+    // Den ausgewählten Text ermitteln
+    const selectedText = textArea.value.substring(start, end);
+
+    // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
+    const highlightedText = "█→" + selectedText.toUpperCase() + "←█";
+
+    // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
+    textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
+
+    // Die Markierung deaktivieren, indem der Cursor ans Ende des eingefügten Textes gesetzt wird
+    const newCursorPos = start + highlightedText.length;
+    textArea.selectionStart = newCursorPos;
+    textArea.selectionEnd = newCursorPos;
+
+    // Den Fokus auf die Textarea setzen
+    textArea.focus();
+}
         function insertBullet() {
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
