@@ -134,7 +134,7 @@
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
-            var breakline = "\n" + "▔".repeat(44); // Line made of ▔ repeated X times
+            var breakline = "\n" + "▔".repeat(42); // Line made of ▔ repeated X times
 
             // Insert the breakline into the text
             textArea.value = textBefore + breakline + textAfter;
