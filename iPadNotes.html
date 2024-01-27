@@ -95,6 +95,7 @@
     <script>
 
         const textArea = document.getElementById('textArea');
+        const headerText = document.getElementById('headerText');
 
         function saveContent() {
             try {
@@ -103,6 +104,17 @@
                 console.error("Could not save to localStorage. Details: ", e);
             }
         }
+
+        function saveHeaderText() {
+        try {
+            localStorage.setItem('headerTextData', headerText.innerHTML);
+        } catch (e) {
+            console.error("Could not save header text to localStorage. Details: ", e);
+        }
+    }
+
+
+
         function copyText() {
             navigator.clipboard.writeText(document.getElementById('textArea').value)
                 .then(() => alert('Text copied to clipboard'))
@@ -152,7 +164,7 @@
     const selectedText = textArea.value.substring(start, end);
 
     // Den ausgewählten Text in Großbuchstaben umwandeln und mit "█" umschließen
-    const highlightedText = "█→" + selectedText.toUpperCase() + "←█";
+    const highlightedText = "\n█" + selectedText.toUpperCase() + "\n";
 
     // Den ausgewählten Text durch den hervorgehobenen Text ersetzen
     textArea.value = textArea.value.substring(0, start) + highlightedText + textArea.value.substring(end);
@@ -274,24 +286,35 @@
         }
 
 
+        // Modify existing event listener for textArea
         document.getElementById('textArea').addEventListener('input', function () {
             saveContent();
+            saveHeaderText();
             updateHeader();
-
         });
 
-        window.onload = function () {
-            try {
-                var savedContent = localStorage.getItem('textData');
-                if (savedContent) {
-                    document.getElementById('textArea').value = savedContent;
-                }
-                updateHeader();
-            } catch (e) {
-                console.error("Could not load from localStorage. Details: ", e);
-            }
-        };
 
+        headerText.addEventListener('input', function () {
+    saveHeaderText();
+});
+
+
+    // Modify the window.onload function
+    window.onload = function () {
+        try {
+            var savedContent = localStorage.getItem('textData');
+            var savedHeaderText = localStorage.getItem('headerTextData');
+            if (savedContent) {
+                textArea.value = savedContent;
+            }
+            if (savedHeaderText) {
+                headerText.innerHTML = savedHeaderText;
+            }
+            updateHeader(); // Assuming this function exists already
+        } catch (e) {
+            console.error("Could not load from localStorage. Details: ", e);
+        }
+    };
 
 
 
