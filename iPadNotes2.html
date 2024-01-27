@@ -205,8 +205,13 @@
             let end = text.indexOf('\n▔', cursorPos);
 
             if (end === -1) end = text.length;
-            if (start === -1) start = 0;
-            else start += 1; // Adjusting start position to be one character earlier
+            if (start === -1) {
+                start = 0;
+            } else {
+                // Move start to the beginning of the line above the '▔▔▔▔...' line
+                start = text.lastIndexOf('\n', start - 1);
+                if (start === -1) start = 0;
+            }
 
             // Select the text between the two lines
             textArea.setSelectionRange(start, end);
@@ -226,6 +231,7 @@
             saveContent();
         }
 
+
         function abschnittRunter() {
             const text = textArea.value;
             let cursorPos = textArea.selectionStart;
@@ -233,8 +239,13 @@
             let end = text.indexOf('\n▔', cursorPos);
 
             if (end === -1) end = text.length;
-            if (start === -1) start = 0;
-            else start += 1; // Adjusting start position to be one character earlier
+            if (start === -1) {
+                start = 0;
+            } else {
+                // Move start to the beginning of the line above the '▔▔▔▔...' line
+                start = text.lastIndexOf('\n', start - 1);
+                if (start === -1) start = 0;
+            }
 
             // Extract the selected text
             const selectedText = textArea.value.substring(start, end);
@@ -250,6 +261,7 @@
             // Update any necessary states after text manipulation
             saveContent();
         }
+
 
 
         function headlineInput() {
