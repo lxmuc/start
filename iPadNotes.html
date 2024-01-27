@@ -96,6 +96,7 @@
 
         const textArea = document.getElementById('textArea');
         const headerText = document.getElementById('headerText');
+        const breakline = "\n" + "▔".repeat(42); // Line made of ▔ repeated X times
 
         function saveContent() {
             try {
@@ -125,7 +126,7 @@
             navigator.clipboard.readText()
                 .then(text => {
                     const currentContent = document.getElementById('textArea').value;
-                    document.getElementById('textArea').value = currentContent + "\n\n" + text;
+                    document.getElementById('textArea').value = currentContent + breakline + "\n" + text + "\n";
                     saveContent();
                 })
                 .catch(err => console.error('Failed to paste text: ', err));
@@ -144,7 +145,7 @@
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
-            var breakline = "\n" + "▔".repeat(42); // Line made of ▔ repeated X times
+
 
             // Insert the breakline into the text
             textArea.value = textBefore + breakline + textAfter;
@@ -204,8 +205,13 @@
             let end = text.indexOf('\n▔', cursorPos);
 
             if (end === -1) end = text.length;
-            if (start === -1) start = 0;
-            else start += 1; // Adjusting start position to be one character earlier
+            if (start === -1) {
+                start = 0;
+            } else {
+                // Move start to the beginning of the line above the '▔▔▔▔...' line
+                start = text.lastIndexOf('\n', start - 1);
+                if (start === -1) start = 0;
+            }
 
             // Select the text between the two lines
             textArea.setSelectionRange(start, end);
@@ -225,6 +231,7 @@
             saveContent();
         }
 
+
         function abschnittRunter() {
             const text = textArea.value;
             let cursorPos = textArea.selectionStart;
@@ -232,8 +239,13 @@
             let end = text.indexOf('\n▔', cursorPos);
 
             if (end === -1) end = text.length;
-            if (start === -1) start = 0;
-            else start += 1; // Adjusting start position to be one character earlier
+            if (start === -1) {
+                start = 0;
+            } else {
+                // Move start to the beginning of the line above the '▔▔▔▔...' line
+                start = text.lastIndexOf('\n', start - 1);
+                if (start === -1) start = 0;
+            }
 
             // Extract the selected text
             const selectedText = textArea.value.substring(start, end);
@@ -249,6 +261,7 @@
             // Update any necessary states after text manipulation
             saveContent();
         }
+
 
 
         function headlineInput() {
