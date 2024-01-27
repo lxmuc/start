@@ -32,10 +32,10 @@
             position: absolute;
             display: flex;
             margin-top: 30px;
+            width: 930px;
+            margin-left: 40px;
             justify-content: space-between;
-            /* This will distribute buttons evenly */
-            margin: 30px 80px 0 80px;
-            /* Match the margin of the textarea */
+
         }
 
         button {
@@ -123,7 +123,7 @@
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
-            var breakline = "\n" + "▔".repeat(50); // Line made of ▔ repeated X times
+            var breakline = "\n" + "▔".repeat(48); // Line made of ▔ repeated X times
 
             // Insert the breakline into the text
             textArea.value = textBefore + breakline + textAfter;
