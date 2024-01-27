@@ -32,9 +32,8 @@
         #buttonContainer {
             position: absolute;
             display: flex;
-            margin-top: 30px;
+            margin-top: 33px;
             width: 840px;
-            margin-left: 40px;
             justify-content: space-between;
         }
 
@@ -47,6 +46,7 @@
             border-radius: 5px;
             color: grey;
             box-shadow:  2px 2px 7px 3px rgba(0, 0, 0, 0.1);
+
         }
 
         textarea {
@@ -131,7 +131,7 @@
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
-            var breakline = "\n" + "▔".repeat(47); // Line made of ▔ repeated X times
+            var breakline = "\n" + "▔".repeat(44); // Line made of ▔ repeated X times
 
             // Insert the breakline into the text
             textArea.value = textBefore + breakline + textAfter;
