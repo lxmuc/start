@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Mail Mama Notes</title>
+    <title>iPadNotes A</title>
     <link rel="apple-touch-icon" href="IMG_7935.png">
     <style>
         html,
@@ -19,7 +19,7 @@
         }
 
         #headerText {
-            
+
             font-family: Arial, sans-serif;
             font-weight: bold;
             color: darkgrey;
@@ -68,7 +68,7 @@
 
 <body>
 
-    <div id="headerText">Mail Mama</div>
+    <div id="headerText" contenteditable="true">...</div>
 
     <div id="buttonContainer">
         <button onclick="copyText()">Copy All</button>
@@ -76,12 +76,17 @@
         <button onclick="clearText()">Delete All</button>
         <button onclick="insertBullet()">Bulletpoint</button>
         <button onclick="insertBreakline()">Linie einfügen</button>
-        <button onclick="markiereAbschnitt()">Abschnitt markieren</button>
+        <button onclick="abschnittHoch()">Abschnitt hoch</button>
+        <button onclick="abschnittRunter()">Abschnitt ans Ende</button>
+        <button onclick="headlineInput()">Headline</button>
     </div>
 
     <textarea id="textArea" placeholder="Start typing..."></textarea>
 
     <script>
+
+        const textArea = document.getElementById('textArea');
+
         function saveContent() {
             try {
                 localStorage.setItem('textData', document.getElementById('textArea').value);
@@ -89,14 +94,6 @@
                 console.error("Could not save to localStorage. Details: ", e);
             }
         }
-
-        function updateHeader() {
-            var textAreaContent = document.getElementById('textArea').value;
-            var firstLine = textAreaContent.split('\n')[0] || 'Notes';
-            document.getElementById('headerText').innerText = firstLine;
-            document.title = firstLine + ' Notes';
-        }
-
         function copyText() {
             navigator.clipboard.writeText(document.getElementById('textArea').value)
                 .then(() => alert('Text copied to clipboard'))
@@ -109,7 +106,6 @@
                     const currentContent = document.getElementById('textArea').value;
                     document.getElementById('textArea').value = currentContent + "\n\n" + text;
                     saveContent();
-                    updateHeader();
                 })
                 .catch(err => console.error('Failed to paste text: ', err));
         }
@@ -123,9 +119,7 @@
         }
         /// inserts a line made of ▔ into the textarea at the current position of the cursor
 
-
         function insertBreakline() {
-            var textArea = document.getElementById('textArea');
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
@@ -140,7 +134,6 @@
         }
 
         function insertBullet() {
-            var textArea = document.getElementById('textArea');
             var cursorPosition = textArea.selectionStart; // Get the cursor position
             var textBefore = textArea.value.substring(0, cursorPosition);
             var textAfter = textArea.value.substring(cursorPosition);
@@ -155,19 +148,81 @@
         }
 
 
-        function markiereAbschnitt() {
-    var textArea = document.getElementById('textArea');
+        function abschnittHoch() {
+            const text = textArea.value;
+            let cursorPos = textArea.selectionStart;
+            let start = text.lastIndexOf('\n▔', cursorPos);
+            let end = text.indexOf('\n▔', cursorPos);
+
+            if (end === -1) end = text.length;
+            if (start === -1) start = 0;
+            else start += 1; // Adjusting start position to be one character earlier
+
+            // Select the text between the two lines
+            textArea.setSelectionRange(start, end);
+
+            // Extract the selected text
+            const selectedText = textArea.value.substring(start, end);
+
+            // Remove the selected text from its current position
+            let before = text.substring(0, start);
+            let after = text.substring(end);
+            textArea.value = before + after;
+
+            // Prepend the selected text to the beginning of the textarea content
+            textArea.value = selectedText + '\n' + textArea.value;
+
+            // Update any necessary states after text manipulation
+            saveContent();
+        }
+
+        function abschnittRunter() {
+            const text = textArea.value;
+            let cursorPos = textArea.selectionStart;
+            let start = text.lastIndexOf('\n▔', cursorPos);
+            let end = text.indexOf('\n▔', cursorPos);
+
+            if (end === -1) end = text.length;
+            if (start === -1) start = 0;
+            else start += 1; // Adjusting start position to be one character earlier
+
+            // Extract the selected text
+            const selectedText = textArea.value.substring(start, end);
+
+            // Remove the selected text from its current position
+            let before = text.substring(0, start);
+            let after = text.substring(end);
+            textArea.value = before + after;
+
+            // Append the selected text to the end of the textarea content
+            textArea.value = textArea.value.trim() + '\n' + selectedText;
+
+            // Update any necessary states after text manipulation
+            saveContent();
+        }
+
+
+function headlineInput() {
     const text = textArea.value;
     let cursorPos = textArea.selectionStart;
-    let start = text.lastIndexOf('\n▔', cursorPos);
-    let end = text.indexOf('\n▔', cursorPos);
 
-    if (end === -1) end = text.length;
-    if (start === -1) start = 0;
-    else start += 2; // Adjusting start position to after the line break and line character
+    // Suche rückwärts nach der letzten Abfolge von ▔-Zeichen
+    let lastLinePos = text.lastIndexOf('▔', cursorPos);
 
-    // Select the text between the two lines
-    textArea.setSelectionRange(start, end);
+    // Falls keine ▔-Zeichen gefunden wurden, setze den Cursor an den Anfang
+    if (lastLinePos === -1) {
+        textArea.setSelectionRange(0, 0);
+    } else {
+        // Suche den Anfang der Abfolge von ▔-Zeichen
+        while (lastLinePos > 0 && text[lastLinePos - 1] === '▔') {
+            lastLinePos--;
+        }
+
+        // Setze den Cursor an diese Stelle
+        textArea.setSelectionRange(lastLinePos, lastLinePos);
+    }
+
+
 }
 
 
