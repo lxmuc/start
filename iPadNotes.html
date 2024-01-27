@@ -237,9 +237,6 @@
         }
 
         function emailWithClipboardContents() {
-            // Select the textarea element
-            var textArea = document.getElementById('editTextArea');
-
             // Copy its contents to the clipboard
             textArea.select();
             document.execCommand('copy');
