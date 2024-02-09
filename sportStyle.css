@@ -1,0 +1,162 @@
+:root {
+    --bg-color-grey: rgb(243, 243, 243);
+    --bg-color-light-grey: rgb(252, 252, 252);
+    --bg-color-white: rgb(255, 255, 255);
+    --border-radius: 5px;
+    --shadow: -1px 0px 8px 2px rgba(0, 0, 0, 0.1);
+    --color-grey: rgb(112, 112, 112);
+    --margin-standard: 4px;
+}
+
+.layout {
+    width: 100%;
+    height: 768px;
+    display: grid;
+    grid:
+        "header" auto "main" 80% "." auto / 1fr;
+    gap: 0px;
+    font-family: arial;
+    font-size: 15px;
+}
+
+.header {
+    grid-area: header;
+    background-color: var(--bg-color-grey);
+    border-radius: var(--border-radius);
+    padding: var(--margin-standard);
+}
+
+.main {
+    grid-area: main;
+}
+
+button {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: var(--margin-standard);
+    background-color: var(--bg-color-white);
+}
+
+
+button:hover {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: var(--margin-standard);
+    background-color: var(--color-grey);
+    color: var(--bg-color-light-grey);
+}
+
+/* ÜBUNG */
+
+.ganzeUebung {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--bg-color-light-grey);
+    margin-top: 5px;
+    height: 105px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.muskelGruppe {
+    margin-left: var(--margin-standard);
+    color: var(--color-grey);
+}
+
+.bild {
+    margin-left: var(--margin-standard);
+    width: 100px;
+    height: 100px;
+    background-color: var(--bg-color-white);
+    background-size: cover;
+    transition: all 0.1s ease;
+    border-radius: var(--border-radius);
+    z-index: 2;
+    background-size: contain; /* or use 'cover' depending on desired effect */
+    background-repeat: no-repeat; 
+    background-position: center;
+     }
+
+.uebungNameWrap {
+    width: 100px;
+}
+
+.tabelleWrap {
+    margin-left: 10px;
+    width: 200px;
+
+}
+
+.wdhReiheWrap {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    padding: 2px;
+}
+
+.wdhReiheWrap > div:nth-child(5) {
+    background-color: rgb(248, 248, 248);
+}
+
+.wdhReiheWrap > div:nth-child(6) {
+    background-color: rgb(248, 248, 248);
+}
+
+
+
+.uebungsName {
+    margin-left: var(--margin-standard);
+}
+
+.sportGeraet {
+    margin-left: var(--margin-standard);
+}
+
+.platzHalter {
+    margin-left: var(--margin-standard);
+}
+
+.gewicht {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color-grey);
+    margin-left: var(--margin-standard);
+    width: 40px;
+    height: 25px;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+}
+
+.wdh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color-grey);
+    margin-left: var(--margin-standard);
+    width: 25px;
+    height: 25px;
+    border-radius: var(--border-radius);
+}
+
+
+.freitext {
+    background-color: var(--bg-color-white);
+    height: 70px;
+    margin-left: 10px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.freitext:focus {
+outline: none
+;}
+
+
+/* FOOTER */
+.footer {
+    background-color: grey;
+    grid-area: footer;
+}
