@@ -11,74 +11,21 @@
 <body>
     <section class="layout">
         <div class="header">
-            <button onclick="allesSpeichernStorage()">SaveCanvas</button> 
-            <button>NeueÜbung</button> 
+            <input type="text" id="meineEingabeleiste" name="eingabeName">
+
+            <button onclick="allesSpeichernStorage()">SaveCanvas</button>
+            <button>NeueÜbung</button>
+            <button>Nur Auswahl</button>
         </div>
         <div class="main">
             <div class="ganzeUebung">
-                <div class="muskelGruppe">Brust</div>
-                <div class="bild" style="background-image: url('./png/2.jpg');"></div>
+                <div class="bild" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)"></div>
                 <div class="uebungNameWrap">
-                    <div class="uebungsName">Bankdrücken</div>
-                    <div class="sportGeraet">KH</div>
-                    <div class="platzHalter"></div>
+                    <div class="uebungsName" contenteditable="true"><span class="highlight1">Brust</span><br>KH Bankdrücken<br><span class="highlight2">Bank</span></div>
                 </div>
-                <div class="tabelleWrap">
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                </div>
-                <div class="tabelleWrap">
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                    <div class="wdhReiheWrap">
-                        <div class="gewicht" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                        <div class="wdh" contenteditable="true"></div>
-                    </div>
-                </div>
+                <div class="freitext" contenteditable="true"></div>
+                <div class="freitext" contenteditable="true"></div>
 
-                <div class="tabelleWrap">
-                    <div class="freitext" contenteditable="true"></div>
-                </div>
             </div>
         </div>
         <div class="footer"></div>
@@ -87,3 +34,32 @@
 </body>
 
 </html>
+
+<!--
+                    <div class="tabelleWrap">
+                    <div class="wdhReiheWrap">
+                        <div class="gewicht" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                    </div>
+                    <div class="wdhReiheWrap">
+                        <div class="gewicht" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                    </div>
+                    <div class="wdhReiheWrap">
+                        <div class="gewicht" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                        <div class="wdh" contenteditable="true"></div>
+                    </div>
+                </div>
+-->
